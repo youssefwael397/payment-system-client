@@ -9,7 +9,7 @@ function App() {
 
   return (
     <UserProvider>
-      <Router basename="/spe-evaluation-system">
+      <Router>
         <div className="App bgColor">
           <NavBar />
           <AppRoutes />

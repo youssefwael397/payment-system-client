@@ -14,8 +14,8 @@ import { VisibilityOff, Visibility } from "@mui/icons-material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import API_PATH from "../API_PATH";
 import { UserContext } from "./../UserProvider";
-import LinearProgress from '@mui/material/LinearProgress';
-import ROOT_PATH from '../ROOT_PATH'
+import LinearProgress from "@mui/material/LinearProgress";
+import ROOT_PATH from "../ROOT_PATH";
 
 function Login() {
   const [values, setValues] = React.useState({
@@ -50,9 +50,9 @@ function Login() {
   };
 
   const handleLogin = async (e) => {
-    setIsLoading(true)
+    setIsLoading(true);
     e.preventDefault();
-    setError('');
+    setError("");
     const form = new FormData();
     form.append("email", email);
     form.append("password", values.password);
@@ -62,37 +62,37 @@ function Login() {
       body: form,
     });
 
-
     const data = await res.json();
-    if (data.status !== "ok") {
-      const newErr = await data.error;
-      setIsLoading(false)
-      setError(newErr);
+    console.log(res)
+    if (!res.ok) {
+      console.log(data)
+      setIsLoading(false);
+      setError(data.error);
     } else {
-      if (data.login_token) {
-        window.localStorage.setItem("token", data.login_token);
-        window.localStorage.setItem("isLogging", true);
-        window.location.href = `/spe-evaluation-system/profile`;
-      }
+      console.log(data.token)
+      window.localStorage.setItem("token", data.token);
+      window.localStorage.setItem("isLogging", true);
+      window.location.href = `/profile`;
     }
-
   };
 
   return (
     <div class="container">
       <div className="mx-auto my-5 w-100">
-
-        <form className="shadow-lg rounded Login mx-auto" onSubmit={handleLogin}>
-          {
-            isLoading && <Box className="overflow-hidden" sx={{ width: '100%' }}>
+        <form
+          className="shadow-lg rounded Login mx-auto"
+          onSubmit={handleLogin}
+        >
+          {isLoading && (
+            <Box className="overflow-hidden" sx={{ width: "100%" }}>
               <LinearProgress />
             </Box>
-          }
+          )}
 
-          <div className={`mt-4 p-5 ${isLoading && 'opacity-50'}`}>
-
+          <div className={`mt-4 p-5 ${isLoading && "opacity-50"}`}>
             <h3 className="text-center text-muted my-2">Login Now</h3>
-            <TextField className="text-center my-4"
+            <TextField
+              className="text-center my-4"
               id="outlined-email-input"
               label="Email"
               type="email"
@@ -101,7 +101,7 @@ function Login() {
               onChange={(e) => setEmail(e.target.value)}
               disabled={isLoading & true}
             />
-            <Box >
+            <Box>
               <FormControl variant="outlined">
                 <InputLabel htmlFor="outlined-adornment-password">
                   Password
@@ -149,17 +149,27 @@ function Login() {
               </Button>
             </div>
             <div className="mt-2 text-center">
-              <NavLink className="text-danger text-decoration-none" exact to={`${ROOT_PATH}/forgetpassword`} underline="none">
+              <NavLink
+                className="text-danger text-decoration-none"
+                exact
+                to={`${ROOT_PATH}/forgetpassword`}
+                underline="none"
+              >
                 Forget Password?
               </NavLink>
               <br />
-              <NavLink className=" text-decoration-none" exact to={`${ROOT_PATH}/signup`} underline="none">
+              {/* <NavLink
+                className=" text-decoration-none"
+                exact
+                to={`${ROOT_PATH}/signup`}
+                underline="none"
+              >
                 Create A new Account
-              </NavLink>
+              </NavLink> */}
             </div>
           </div>
         </form>
-      </div >
+      </div>
     </div>
   );
 }

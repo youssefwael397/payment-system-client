@@ -463,7 +463,8 @@ function Profile() {
   } else {
     return (
       <Box className="mt-5 text-center mx-auto ">
-        <CircularProgress />
+        {/* <CircularProgress /> */}
+        welcome 
       </Box>
     )
   }

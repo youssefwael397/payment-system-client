@@ -10,7 +10,7 @@ export default function My404Component() {
     return (
         <div className='container text-center mx-auto'>
             {
-                isLogging ? (<Alert className="my-4 p-3 text-center" severity="error"><h3>ERROR 404 page not found. <Link className="text-decoration-none" exact to={`${root_route}/profile`}>Go To Profile Page.</Link> </h3></Alert>) : (<Alert className=" my-4 p-3 text-center" severity="error"><h5>ERROR 404 page not found. <Link className="text-decoration-none" exact to={`${root_route}/login`}>Go To Login Page.</Link> </h5></Alert>)
+                isLogging ? (<Alert className="my-4 p-3 text-center" severity="error"><h3>ERROR 404 page not found. <Link className="text-decoration-none" exact to={`${root_route}/profile`}>Go To Profile Page.</Link> </h3></Alert>) : (<Alert className=" my-4 p-3 text-center" severity="error"><h5>ERROR 404 page not found. <Link className="text-decoration-none" exact to={`${root_route}/`}>Go To Login Page.</Link> </h5></Alert>)
             }
         </div >
     )
