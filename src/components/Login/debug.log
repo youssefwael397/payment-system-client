@@ -1,0 +1,5 @@
+[0601/235933.147:ERROR:registration_protocol_win.cc(106)] CreateFile: The system cannot find the file specified. (0x2)
+[0602/000755.824:ERROR:registration_protocol_win.cc(106)] CreateFile: The system cannot find the file specified. (0x2)
+[0602/014156.342:ERROR:registration_protocol_win.cc(106)] CreateFile: The system cannot find the file specified. (0x2)
+[0602/014156.370:ERROR:registration_protocol_win.cc(106)] CreateFile: The system cannot find the file specified. (0x2)
+[0602/074336.886:ERROR:registration_protocol_win.cc(106)] CreateFile: The system cannot find the file specified. (0x2)

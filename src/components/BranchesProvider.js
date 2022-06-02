@@ -3,7 +3,7 @@ import { useJwt } from "react-jwt";
 import API_PATH from "./API_PATH";
 
 export const UserContext = createContext();
-export const UserProvider = (props) => {
+export const BranchesProvider = (props) => {
   const [token, setToken] = useState();
   const [isLogging, setIsLogging] = useState(false);
   const { decodedToken, isExpired } = useJwt(token);

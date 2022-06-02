@@ -11,6 +11,7 @@ import ForgetPassword from "./ForgetPassword/ForgetPassword";
 import My404Component from "./My404Component/My404Component";
 import ROOT_PATH from "./ROOT_PATH.js";
 import ResetPassword from "./ResetPassword/ResetPassword";
+import Home from './Home/Home';
 export default function AppRoutes() {
   const root_route = ROOT_PATH;
   const { isLogging, isBoss, isManager, isSales } = useContext(UserContext);
@@ -38,6 +39,7 @@ export default function AppRoutes() {
             </>
           ) : null}
 
+          <Route path={`${root_route}/home`} element={<Home/>} />
           <Route path={`${root_route}/profile`} element={<Profile />} />
           <Route path={`${root_route}/logout`} element={<Logout />} />
         </>

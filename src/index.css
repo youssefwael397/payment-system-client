@@ -1,106 +1,287 @@
+@import url("https://fonts.googleapis.com/css2?family=Lemonada:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;500;600;700;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --nav-height: 56.45px;
+}
+
 * {
   box-sizing: border-box;
+}
+
+.login-page-vh {
+  height: calc(100vh - var(--nav-height));
+}
+
+.page-vh{
+  min-height: calc(100vh - var(--nav-height));
+}
+
+.profile-page-vh{
+  height: calc(100vh - var(--nav-height));
 }
 
 .bg-spe-logo {
   background-color: #054a94;
 }
 
+.nav {
+  z-index: 6;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
 .nav-shadow {
   box-shadow: 0px -3px 10px 5px #2289f5;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.font-cairo{
+  font-family: 'Cairo', sans-serif;
 }
 
-.Register {
-  min-width: 360px;
-  max-width: 800px;
-  min-height: 603px;
+.logout {
+  padding: 8px;
+  background-color: #fff;
+  color: #00356c;
 }
-.Login {
-  width: 300px;
+
+.logout:hover {
+  padding: 8px;
+  color: #fff;
+  background-color: #00356c;
+}
+.nav-item .nav-link {
+  color: #fff;
+}
+
+.nav-item .nav-link:hover {
+  background-color: #fff;
+  color: #00356c;
+}
+
+.nav-item .nav-link.active {
+  background-color: #fff;
+  color: #00356c;
+}
+
+.font-primary {
+  /* font-family: "Lemonada", cursive; */
+  font-family: "Baloo Bhaijaan 2", cursive;
+  font-weight: 500;
+}
+
+.login-form {
+  width: 400px;
+  height: 450px;
+  border-radius: 20px;
+  direction: rtl;
+  background-color: #fff;
   z-index: 6;
 }
 
-.form-container {
+.profile-card {
+  width: 400px;
+  min-height: 500px;
+  border-radius: 20px;
+  position: relative;
+  background-color: #fff;
+}
+
+.profile-card-top {
+  width: 100%;
+  height: 150px;
+  background: rgb(9, 9, 110);
+  background: linear-gradient(
+    60deg,
+    rgba(9, 9, 110, 1) 0%,
+    rgba(0, 97, 196, 1) 50%
+  );
+  border-radius: inherit;
+}
+
+.profile-card-bottom {
+  width: 100%;
+  margin-top: 50px;
+  border-radius: inherit;
+}
+
+.profile-card-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
   position: absolute;
-  top: 0;
-  transition: all 0.6s ease-in-out;
-  z-index: 2;
-  overflow-y: auto;
+  top: 100px;
+  left: 150px;
 }
 
-.screen__background {
+.border-shape-1 {
+  width: 100px;
+  height: 100px;
+  background-color: #2289f5;
+  border-radius: 50%;
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 0;
-  -webkit-clip-path: inset(0 0 0 0);
-  clip-path: inset(0 0 0 0);
+  right: 30px;
+  top: 10%;
+  opacity: 0.4;
+  z-index: 1;
+  box-shadow: 4px 8px 13px 1px #000;
 }
 
-.screen__background__shape {
-  transform: rotate(45deg);
-  position: absolute;
-}
-
-.screen__background__shape1 {
-  height: 520px;
-  width: 520px;
-  background: #fff;
-  top: -50px;
-  right: 120px;
-  border-radius: 0 72px 0 0;
-}
-
-.screen__background__shape2 {
-  height: 220px;
-  width: 220px;
-  background: #2461a285;
-  top: -172px;
-  right: 0;
-  border-radius: 32px;
-}
-
-.screen__background__shape3 {
-  height: 540px;
-  width: 190px;
-  background: linear-gradient(270deg, #054a94, #00356c);
-  top: -24px;
-  right: 0;
-  border-radius: 32px;
-}
-
-.screen__background__shape4 {
-  height: 400px;
+.border-shape-2 {
   width: 200px;
-  background: #326fb16b;
-  top: 420px;
+  height: 200px;
+  background-color: #2289f5;
+  border-radius: 50%;
+  position: absolute;
+  right: 10px;
+  bottom: 2%;
+  opacity: 0.2;
+  z-index: 1;
+  box-shadow: 4px 8px 13px 1px #000;
+}
+
+.border-shape-3 {
+  width: 300px;
+  height: 300px;
+  background-color: #2289f5;
+  border-radius: 50%;
+  position: absolute;
   right: 50px;
-  border-radius: 60px;
+  bottom: 40%;
+  opacity: 0.3;
+  z-index: 1;
+  box-shadow: 4px 8px 13px 1px #000;
 }
 
-.line {
-  height: 4px !important;
-  color: #054a94;
-  background-color: #054a94;
+.border-shape-4 {
+  width: 100px;
+  height: 100px;
+  background-color: #2289f5;
+  border-radius: 50%;
+  position: absolute;
+  left: 30px;
+  bottom: 10%;
+  opacity: 0.4;
+  z-index: 1;
+  box-shadow: 4px 8px 13px 1px #000;
 }
 
-.cards {
-  background-image: url("../public/images/2.jpg");
+.border-shape-5 {
+  width: 200px;
   height: 200px;
-  background-size: cover;
-  background-position: center;
+  background-color: #2289f5;
+  border-radius: 50%;
+  position: absolute;
+  left: 10px;
+  top: 2%;
+  opacity: 0.2;
+  z-index: 1;
+  box-shadow: 4px 8px 13px 1px #000;
 }
 
-.cards_Meeting {
-  background-image: url("../public/images/3.jpg");
-  height: 200px;
+.border-shape-6 {
+  width: 300px;
+  height: 300px;
+  background-color: #2289f5;
+  border-radius: 50%;
+  position: absolute;
+  left: 50px;
+  top: 40%;
+  opacity: 0.3;
+  z-index: 1;
+  box-shadow: 4px 8px 13px 1px #000;
+}
+
+.bgColor {
+  background-color: rgb(247, 246, 255);
+}
+
+/* 404 component */
+#notfound {
+  position: relative;
+}
+
+#notfound .notfound {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.notfound {
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.notfound .notfound-404 {
+  height: 190px;
+}
+
+.notfound .notfound-404 h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 146px;
+  font-weight: 700;
+  margin: 0px;
+  color: #232323;
+}
+
+.notfound .notfound-404 h1>span {
+  display: inline-block;
+  width: 120px;
+  height: 120px;
+  background-image: url('./../public/images/emoji.png');
   background-size: cover;
-  background-position: center;
+  -webkit-transform: scale(1.4);
+      -ms-transform: scale(1.4);
+          transform: scale(1.4);
+  z-index: -1;
+}
+
+.notfound h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+  text-transform: uppercase;
+  color: #232323;
+}
+
+.notfound p {
+  font-family: 'Montserrat', sans-serif;
+  color: #787878;
+  font-weight: 300;
+}
+
+.notfound a {
+  font-family: 'Montserrat', sans-serif;
+  display: inline-block;
+  padding: 12px 30px;
+  font-weight: 700;
+  background-color: #f99827;
+  color: #fff;
+  border-radius: 40px;
+  text-decoration: none;
+  -webkit-transition: 0.2s all;
+  transition: 0.2s all;
+}
+
+.notfound a:hover {
+  opacity: 0.8;
+}
+
+@media only screen and (max-width: 767px) {
+  .notfound .notfound-404 {
+    height: 115px;
+  }
+  .notfound .notfound-404 h1 {
+    font-size: 86px;
+  }
+  .notfound .notfound-404 h1>span {
+    width: 86px;
+    height: 86px;
+  }
 }

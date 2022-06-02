@@ -1,53 +1,26 @@
 import React, { useState, useEffect, useContext } from "react";
-// import { Avatar } from "@mui/material";
-import LogoutIcon from "@mui/icons-material/Logout";
-import LeaderboardIcon from "@mui/icons-material/Leaderboard";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
-// import LoginIcon from "@mui/icons-material/Login";
-// import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { NavLink } from "react-router-dom";
-import Requests from "../Requests/Requests";
 import { UserContext } from "./../UserProvider";
 import ROOT_PATH from "../ROOT_PATH.js";
-// import logo from "./logo.png";
 
 const NavBar = () => {
   const root_route = ROOT_PATH;
-  const { user, isLogging, isBoss, isManager, isSales } =
+  const { user, userInfo, isLogging, isBoss, isManager, isSales } =
     useContext(UserContext);
   const [navListItems, setNavListItems] = useState([]);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const setBossNav = () => {
     setNavListItems([
       {
-        path: `${root_route}/profile`,
-        title: user.name,
-        // icon: (
-        //   <Avatar
-        //     className="mx-1"
-        //     alt={user.user_name}
-        //     src={`${image}`}
-        //     sx={{ width: 30, height: 30 }}
-        //   />
-        // ),
-      },
-      {
         path: `${root_route}/managers`,
-        title: "managers",
-        icon: <LeaderboardIcon className="mx-1" />,
+        title: "المديرون",
       },
       {
         path: `${root_route}/branches`,
-        title: "branches",
+        title: "الفروع",
         icon: <AdminPanelSettingsIcon className="mx-1" />,
-      },
-      // {
-      //   path: "/requests",
-      // },
-      {
-        path: `${root_route}/logout`,
-        title: "Logout",
-        icon: <LogoutIcon className="text-secondary mx-1" />,
       },
     ]);
   };
@@ -55,34 +28,12 @@ const NavBar = () => {
   const setManagerNav = () => {
     setNavListItems([
       {
-        path: `${root_route}/profile`,
-        title: user.name,
-        // icon: (
-        //   <Avatar
-        //     className="mx-1"
-        //     alt={user.user_name}
-        //     src={`${image}`}
-        //     sx={{ width: 30, height: 30 }}
-        //   />
-        // ),
+        path: `${root_route}/categories`,
+        title: "التصنيفات",
       },
       {
-        path: `${root_route}/managers`,
-        title: "managers",
-        icon: <LeaderboardIcon className="mx-1" />,
-      },
-      {
-        path: `${root_route}/branches`,
-        title: "branches",
-        icon: <AdminPanelSettingsIcon className="mx-1" />,
-      },
-      // {
-      //   path: "/requests",
-      // },
-      {
-        path: `${root_route}/logout`,
-        title: "Logout",
-        icon: <LogoutIcon className="text-secondary mx-1" />,
+        path: `${root_route}/products`,
+        title: "المنتجات",
       },
     ]);
   };
@@ -90,34 +41,12 @@ const NavBar = () => {
   const setSalesNav = () => {
     setNavListItems([
       {
-        path: `${root_route}/profile`,
-        title: user.name,
-        // icon: (
-        //   <Avatar
-        //     className="mx-1"
-        //     alt={user.user_name}
-        //     src={`${image}`}
-        //     sx={{ width: 30, height: 30 }}
-        //   />
-        // ),
+        path: `${root_route}/clients`,
+        title: "العملاء",
       },
       {
-        path: `${root_route}/managers`,
-        title: "managers",
-        icon: <LeaderboardIcon className="mx-1" />,
-      },
-      {
-        path: `${root_route}/branches`,
-        title: "branches",
-        icon: <AdminPanelSettingsIcon className="mx-1" />,
-      },
-      // {
-      //   path: "/requests",
-      // },
-      {
-        path: `${root_route}/logout`,
-        title: "Logout",
-        icon: <LogoutIcon className="text-secondary mx-1" />,
+        path: `${root_route}/processes`,
+        title: "العمليات",
       },
     ]);
   };
@@ -142,62 +71,80 @@ const NavBar = () => {
   }, [isBoss, isManager, isSales, isLogging]);
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-spe-logo nav-shadow">
+    <nav className="rtl navbar navbar-expand-lg  bg-spe-logo nav-shadow p-0 animate__animated animate__fadeInDown">
       <div className="container-xl">
         <NavLink
-          className="navbar-brand"
-          exact
-          to={isLogging ? `${root_route}/profile` : `${root_route}/`}
+          className={`navbar-brand p-2 ${!isLogging && "mx-auto text-center"}`}
+          // exact="true"
+          to={`${isLogging ? `${root_route}/home` : `${root_route}/`}`}
         >
-          {/* <img width="65px" src={logo} alt="logo" /> */}
-          <span className="mx-2 fs-5 ">Payment System</span>
+          {userInfo.Branch && (
+            <img
+              width="40px"
+              src={`data:image/png;base64, ${userInfo.Branch.logo}`}
+              alt="logo"
+            />
+          )}
+          {(isBoss || !isLogging) && (
+            <span className={`mx-2 fs-5 font-primary text-light`}>
+              شعار الشركة
+            </span>
+          )}
         </NavLink>
+
         <button
-          className="navbar-toggler"
+          className={`navbar-toggler text-light ${!isLogging && "d-none"}`}
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
           aria-controls="navbarNav"
           aria-expanded="false"
+          onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>
+          <span className="material-icons md-18">
+            {menuOpen ? "close" : "menu"}
+          </span>
         </button>
-        <div className="collapse navbar-collapse mx-auto" id="navbarNav">
-          <ul className="navbar-nav ms-auto">
-            {navListItems.map(
-              (item) => (
-                // item.path.includes("profile") ? (
-                //   <li className="nav-item">
-                //     <NavLink
-                //       className="nav-link d-flex align-items-center"
-                //       exact
-                //       to={item.path}
-                //     >
-                //       {item.icon}
-                //       <span className="fs-6">{item.title}</span>
-                //     </NavLink>
-                //   </li>
-                // ) : item.path === "/requests" ? (
-                //   <li className="nav-item">
-                //     <NavLink className="nav-link" exact to="#">
-                //       <Requests />
-                //     </NavLink>
-                //   </li>
-                // ) : (
-                <li className="nav-item">
-                  <NavLink className="nav-link" exact to={item.path}>
-                    {/* {item.icon} */}
-                    {item.title}
+
+        <div className="collapse navbar-collapse text-light" id="navbarNav">
+          <ul className="navbar-nav mx-auto font-cairo">
+            {isLogging && (
+              <>
+                <li className={`nav-item`}>
+                  <NavLink className="nav-link p-3"  to="/profile">
+                    الصفحة الشخصية
                   </NavLink>
                 </li>
-              )
-              //   )
+                <li className={`nav-item`}>
+                  <NavLink className="nav-link p-3"  to="/home">
+                    الصفحة الرئيسية
+                  </NavLink>
+                </li>
+              </>
             )}
+
+            {navListItems.map((item) => (
+              <li className={`nav-item`} key={item.path}>
+                <NavLink className="nav-link p-3"  to={item.path}>
+                  {item.title}
+                </NavLink>
+              </li>
+            ))}
           </ul>
+          {isLogging && (
+            <NavLink
+              className="nav-link logout me-auto p-3 text-muted font-cairo"
+              // exact="true"
+              to="/logout"
+            >
+              تسجيل الخروج
+            </NavLink>
+          )}
         </div>
       </div>
     </nav>
   );
 };
+
 export default NavBar;
