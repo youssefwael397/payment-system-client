@@ -32,7 +32,6 @@ export const UserProvider = (props) => {
     }
   }, [isLogging]);
 
-
   useEffect(() => {
     if (token) {
       if (decodedToken) {
@@ -54,7 +53,7 @@ export const UserProvider = (props) => {
   }, [decodedToken, isExpired]);
 
   useEffect(() => {
-    if (user) {
+    if (user && (isBoss || isManager || isSales)) {
       getUserInfo();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

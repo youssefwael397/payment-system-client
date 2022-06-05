@@ -1,7 +1,13 @@
-import React from 'react'
-
+import React from "react";
+import AddCategoryComponent from "./../AddCategoryComponent/AddCategoryComponent";
+import AddProductComponent from "./../AddProductComponent/AddProductComponent";
+import AddSalesComponent from "./../AddSalesComponent/AddSalesComponent";
 export default function ManagerHome() {
   return (
-    <div>ManagerHome</div>
-  )
+    <div>
+      <AddCategoryComponent />
+      <AddProductComponent />
+      <AddSalesComponent />
+    </div>
+  );
 }

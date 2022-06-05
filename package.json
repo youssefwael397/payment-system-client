@@ -1,6 +1,5 @@
 {
-  "homepage": "http://youssefwael397.github.io/spe-evaluation-system/",
-  "name": "evaluation-system",
+  "name": "payment-system",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -2,20 +2,21 @@ import React, { useState, useEffect, createContext, useContext } from "react";
 import { UserContext } from "./UserProvider";
 import API_PATH from "./API_PATH";
 
-export const BranchesContext = createContext();
-export const BranchesProvider = (props) => {
-  const { token, isBoss } = useContext(UserContext);
-  const [branches, setBranches] = useState([]);
+export const ManagersContext = createContext();
+export const ManagersProvider = (props) => {
+  const { token ,isBoss} = useContext(UserContext);
+  const [managers, setManagers] = useState([]);
 
   useEffect(() => {
-    if (token && isBoss) {
-      getAllBranches();
+    if (token, isBoss) {
+      getAllManagers();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
-  const getAllBranches = async () => {
-    const url = `${API_PATH}/branch/`;
+  const getAllManagers = async () => {
+    const url = `${API_PATH}/manager/`;
+    console.log(token);
     const res = await fetch(url, {
       method: "GET",
       headers: {
@@ -24,16 +25,16 @@ export const BranchesProvider = (props) => {
     });
 
     const data = await res.json();
-    setBranches([...data]);
+    setManagers([...data]);
   };
 
   return (
-    <BranchesContext.Provider
+    <ManagersContext.Provider
       value={{
-        branches,
+        managers,
       }}
     >
       {props.children}
-    </BranchesContext.Provider>
+    </ManagersContext.Provider>
   );
 };
