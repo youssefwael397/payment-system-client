@@ -4,7 +4,7 @@ import API_PATH from "./API_PATH";
 
 export const CategoriesContext = createContext();
 export const CategoriesProvider = (props) => {
-  const { token, userInfo } = useContext(UserContext);
+  const { token, userInfo, isManager } = useContext(UserContext);
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export const CategoriesProvider = (props) => {
 
   const getAllCategories = async () => {
     const url = `${API_PATH}/category/branch/${userInfo.branch_id}`;
-    if (token && userInfo.branch_id) {
+    if (token && isManager) {
       const res = await fetch(url, {
         method: "GET",
         headers: {

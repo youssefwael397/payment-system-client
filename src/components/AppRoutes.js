@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import React, { useContext } from "react";
 import Profile from "./Profile/Profile";
 import Managers from "./Managers/Managers";
+import Manager from "./Manager/Manager";
 import Branches from "./Branches/Branches";
 import Login from "./Login/Login";
 import Logout from "./Logout/Logout";
@@ -11,7 +12,8 @@ import ForgetPassword from "./ForgetPassword/ForgetPassword";
 import My404Component from "./My404Component/My404Component";
 import ROOT_PATH from "./ROOT_PATH.js";
 import ResetPassword from "./ResetPassword/ResetPassword";
-import Home from './Home/Home';
+import Home from "./Home/Home";
+
 export default function AppRoutes() {
   const root_route = ROOT_PATH;
   const { isLogging, isBoss, isManager, isSales } = useContext(UserContext);
@@ -23,6 +25,10 @@ export default function AppRoutes() {
           {isBoss ? (
             <>
               <Route path={`${root_route}/managers`} element={<Managers />} />
+              <Route
+                path={`${root_route}/managers/manager/:id`}
+                element={<Manager />}
+              />
               <Route path={`${root_route}/branches`} element={<Branches />} />
             </>
           ) : null}
@@ -39,7 +45,7 @@ export default function AppRoutes() {
             </>
           ) : null}
 
-          <Route path={`${root_route}/home`} element={<Home/>} />
+          <Route path={`${root_route}/home`} element={<Home />} />
           <Route path={`${root_route}/profile`} element={<Profile />} />
           <Route path={`${root_route}/logout`} element={<Logout />} />
         </>

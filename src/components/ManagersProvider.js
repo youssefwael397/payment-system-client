@@ -4,28 +4,27 @@ import API_PATH from "./API_PATH";
 
 export const ManagersContext = createContext();
 export const ManagersProvider = (props) => {
-  const { token ,isBoss} = useContext(UserContext);
+  const { token, isBoss } = useContext(UserContext);
   const [managers, setManagers] = useState([]);
 
   useEffect(() => {
-    if (token, isBoss) {
-      getAllManagers();
-    }
+    getAllManagers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   const getAllManagers = async () => {
     const url = `${API_PATH}/manager/`;
-    console.log(token);
-    const res = await fetch(url, {
-      method: "GET",
-      headers: {
-        Authorization: token,
-      },
-    });
+    if (token) {
+      const res = await fetch(url, {
+        method: "GET",
+        headers: {
+          Authorization: token,
+        },
+      });
 
-    const data = await res.json();
-    setManagers([...data]);
+      const data = await res.json();
+      setManagers([...data]);
+    }
   };
 
   return (

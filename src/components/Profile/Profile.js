@@ -4,8 +4,11 @@ import { UserContext } from "./../UserProvider";
 import ROOT_PATH from "../ROOT_PATH";
 import userIcon from "./user-icon.png";
 import CircularProgress from "@mui/material/CircularProgress";
+import EditProfile from "./../EditProfile/EditProfile";
+import ResetPassword from "./../ResetPassword/ResetPassword";
 function Profile() {
-  const { user, userInfo, image, isBoss, isLogging } = useContext(UserContext);
+  const { user, userInfo, image, isBoss, isLogging, isManager, isSales } =
+    useContext(UserContext);
   useEffect(() => {
     if (!isLogging) {
       window.location = `${ROOT_PATH}/`;
@@ -24,7 +27,9 @@ function Profile() {
             />
           </div>
           <div className="profile-card-bottom mx-auto text-center ">
-            {user.name && <p>{user.name}</p>}
+            {isBoss && <p>{userInfo.boss_name}</p>}
+            {isManager && <p>{userInfo.manager_name}</p>}
+            {isSales && <p>{userInfo.sales_name}</p>}
             {userInfo.email && <p>{userInfo.email && userInfo.email}</p>}
             {!isBoss ? (
               <>
@@ -33,13 +38,15 @@ function Profile() {
                 {userInfo.Branch && <p>فرع {userInfo.Branch.branch_name}</p>}
               </>
             ) : null}
+            <div className="position-absolute bottom-0 start-50 translate-middle">
+              <div className="mx-auto text-center d-flex justify-content-between">
+                <EditProfile />
+                {isBoss && (
+                  <ResetPassword role={"boss"} user_id={userInfo.boss_id} />
+                )}
+              </div>
+            </div>
           </div>
-          {/* <div className="border-shape-1 animate__animated animate__fadeIn animate__infinite animate__slow"></div>
-      <div className="border-shape-2 animate__animated animate__fadeIn animate__infinite animate__slower"></div>
-      <div className="border-shape-3 animate__animated animate__fadeIn animate__infinite "></div>
-      <div className="border-shape-4 animate__animated animate__fadeIn animate__infinite animate__fast"></div>
-      <div className="border-shape-5 animate__animated animate__fadeIn animate__infinite animate__faster"></div>
-      <div className="border-shape-6 animate__animated animate__fadeIn animate__infinite "></div> */}
         </div>
       </div>
     );

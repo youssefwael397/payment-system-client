@@ -292,3 +292,6 @@ input[type="number"] {
     display: none;
   }
 }
+.rtl{
+  direction: rtl;
+}

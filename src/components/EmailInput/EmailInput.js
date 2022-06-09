@@ -13,7 +13,7 @@ const EmailInput = ({ email, setEmail }) => {
         variant="standard"
         name="email"
         type="email"
-        value={email}
+        value={email && email}
         onChange={(e) => setEmail(e.target.value)}
       />
     </div>

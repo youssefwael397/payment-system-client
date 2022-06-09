@@ -1,163 +1,102 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useParams, Link, NavLink } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { useParams } from "react-router-dom";
+import LockResetIcon from "@mui/icons-material/LockReset";
 import {
-    Box,
-    FormControl,
-    InputLabel,
-    OutlinedInput,
-    InputAdornment,
-    IconButton,
-    Button,
+  Box,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  Button,
 } from "@mui/material";
-import { VisibilityOff, Visibility } from "@mui/icons-material";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import Modal from "@mui/material/Modal";
+
 import API_PATH from "../API_PATH";
+import PasswordInput from "./../PasswordInput/PasswordInput";
+import ConfirmPasswordInput from "./../ConfirmPasswordInput/ConfirmPasswordInput";
+import SubmitButton from "./../SubmitButton/SubmitButton";
 import { UserContext } from "./../UserProvider";
-import ROOT_PATH from '../ROOT_PATH'
 
+export default function ResetPassword({ role, user_id }) {
+  const { id } = useParams();
+  const { token } = useContext(UserContext);
+  const [password, setPassword] = useState();
+  const [confirmPassword, setConfirmPassword] = useState();
+  const [resetPasswordError, setResetPasswordError] = useState();
+  const [success, setSuccess] = useState();
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-export default function ResetPassword() {
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    p: 4,
+  };
 
-    const { id, token } = useParams();
-    const [password, setPassword] = useState();
-    const [confirmPassword, setConfirmPassword] = useState();
-    const [error, setError] = useState();
-    const [confirmError, setConfirmError] = useState();
-    const [resetPasswordError, setResetPasswordError] = useState();
-    const [success, setSuccess] = useState();
+  const resetPassword = async (e) => {
+    e.preventDefault();
+    setResetPasswordError("");
+    setSuccess("");
+    let form = new FormData();
+    form.append("password", password);
 
-    useEffect(() => {
-        console.log(id)
-        console.log(token)
-    }, [id, token])
+    const res = await fetch(
+      `${API_PATH}/${role}/resetpassword/${user_id ? user_id : id}`,
+      {
+        method: "PUT",
+        body: form,
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
 
-    useEffect(() => {
-        if (password) {
-            let has8pattern = /^(?=.{8,})/
-            let has8 = has8pattern.test(password);
-            if (!has8) {
-                setError("at least 8 characters.")
-            } else {
-                let hasUpperCasePattern = /(?=.[A-Z])/
-                let hasUpperCase = hasUpperCasePattern.test(password);
-                if (!hasUpperCase) {
-                    setError('must contains uppercase characters.')
-                } else {
-                    setError('')
-                }
-            }
-        } else {
-            setError('')
-        }
-    }, [password])
-
-    useEffect(() => {
-        if (password && confirmPassword && password !== confirmPassword) {
-            setConfirmError("doesn't match")
-        } else {
-            setConfirmError("")
-        }
-    }, [password, confirmPassword])
-
-    const resetPassword = async (e) => {
-        e.preventDefault();
-        setResetPasswordError("")
-        setSuccess("")
-        let form = new FormData();
-        form.append('password', password)
-        console.log(password)
-
-        await fetch(`${API_PATH}/users/resetpassword/${id}/${token}`, {
-            method: 'POST',
-            body: form
-        }).then(res => res.json())
-            .then(data => {
-                if (data.status === 'ok') {
-                    setSuccess(data.msg)
-                    setTimeout(() => {
-                        window.location.href = `/spe-evaluation-system/login`;
-                    }, 3000)
-                } else {
-                    data.error && setResetPasswordError(data.error)
-                }
-            })
-
+    if (res.ok) {
+      setSuccess("نم تعديل كلمة المرور بنجاح.");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } else {
+      setResetPasswordError("فشل في تعديل كلمة المرور");
     }
+  };
 
-
-    return (
-        <div class="container">
-            <div className="mx-auto my-5 w-100">
-                <form className="shadow-lg mt-4 p-5 rounded Login mx-auto" onSubmit={resetPassword}>
-                    <h4 className="text-center text-muted my-3">Reset Password</h4>
-                    <FormControl className="mt-2" variant="outlined">
-                        <InputLabel htmlFor="outlined-adornment-password">
-                            Password
-                        </InputLabel>
-                        <OutlinedInput
-                            required={true}
-                            id="outlined-adornment-password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            type="password"
-                            label="Password"
-                        />
-                    </FormControl>
-                    <Box >
-                        {error ? (
-                            <div className="text-center error ">
-                                <span className="text-danger">{error}</span>
-                            </div>
-                        ) : null}
-                    </Box>
-                    <FormControl className="mt-3 mb-2" variant="outlined">
-                        <InputLabel htmlFor="outlined-adornment-password">
-                            Confirm Password
-                        </InputLabel>
-                        <OutlinedInput
-                            required={true}
-                            id="outlined-adornment-password"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            type="password"
-                            label="Password"
-                            disabled={error ? true : false}
-                        />
-                    </FormControl>
-                    <Box >
-                        {success ? (
-                            <div>
-                                <span className="text-center text-primary mt-3">{success}</span>
-                            </div>
-                        ) : null}
-                    </Box>
-                    <Box >
-                        {confirmError ? (
-                            <div className="text-center error mt-1">
-                                <span className="text-danger">{confirmError}</span>
-                            </div>
-                        ) : null}
-                    </Box>
-
-                    <div className="text-center mx-auto">
-                        <Button
-                            className="text-center mx-auto rounded-pill px-5 p-2 mt-2"
-                            variant="outlined"
-                            type="submit"
-                            disabled={error || confirmError || !password || !confirmPassword ? true : false}
-                        >
-                            Submit
-                        </Button>
-                    </div>
-                    <Box >
-                        {resetPasswordError ? (
-                            <div className="text-center error mt-1">
-                                <span className="text-danger">{resetPasswordError}</span>
-                            </div>
-                        ) : null}
-                    </Box>
-                </form>
-            </div >
-        </div>
-    )
+  return (
+    <div>
+      <Button size="small" color="primary" onClick={handleOpen}>
+        <LockResetIcon />
+      </Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <form
+            className="shadow-lg mt-4 p-5 rounded Login mx-auto"
+            onSubmit={resetPassword}
+          >
+            <h4 className="text-center text-muted my-3">تعديل كلمة المرور</h4>
+            <PasswordInput password={password} setPassword={setPassword} />
+            <ConfirmPasswordInput
+              password={password}
+              confirmPassword={confirmPassword}
+              setConfirmPassword={setConfirmPassword}
+            />
+            {resetPasswordError && (
+              <p className="text-danger">{resetPasswordError}</p>
+            )}
+            {success && <p className="text-success">{success}</p>}
+            <SubmitButton submitLabel="تأكيد" />
+          </form>
+        </Box>
+      </Modal>
+    </div>
+  );
 }

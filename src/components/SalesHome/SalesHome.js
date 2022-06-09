@@ -1,7 +1,10 @@
-import React from 'react'
+import React from "react";
+import AddClientComponent from "./../AddClientComponent/AddClientComponent";
 
 export default function SalesHome() {
   return (
-    <div>SalesHome</div>
-  )
+    <div>
+      <AddClientComponent />
+    </div>
+  );
 }

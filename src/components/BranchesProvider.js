@@ -8,23 +8,23 @@ export const BranchesProvider = (props) => {
   const [branches, setBranches] = useState([]);
 
   useEffect(() => {
-    if (token && isBoss) {
-      getAllBranches();
-    }
+    getAllBranches();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   const getAllBranches = async () => {
     const url = `${API_PATH}/branch/`;
-    const res = await fetch(url, {
-      method: "GET",
-      headers: {
-        Authorization: token,
-      },
-    });
+    if (token) {
+      const res = await fetch(url, {
+        method: "GET",
+        headers: {
+          Authorization: token,
+        },
+      });
 
-    const data = await res.json();
-    setBranches([...data]);
+      const data = await res.json();
+      setBranches([...data]);
+    }
   };
 
   return (

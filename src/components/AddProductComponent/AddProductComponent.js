@@ -1,18 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import GoogleApiWrapper from "./../GoogleApiWrapper/GoogleApiWrapper";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import { UserContext } from "./../UserProvider";
 import API_PATH from "../API_PATH";
 import SubmitButton from "./../SubmitButton/SubmitButton";
 import LoadingSpinner from "./../LoadingSpinner/LoadingSpinner";
 import { CategoriesContext } from "./../CategoriesProvider";
 import {
-  Button,
   TextField,
-  IconButton,
   MenuItem,
   FormControl,
   Select,
