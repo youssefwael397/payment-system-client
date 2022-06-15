@@ -35,6 +35,10 @@ const NavBar = () => {
         path: `${root_route}/products`,
         title: "المنتجات",
       },
+      {
+        path: `${root_route}/sales`,
+        title: "المناديب",
+      },
     ]);
   };
 
@@ -67,7 +71,7 @@ const NavBar = () => {
       isLogging: isLogging,
     };
     setNavItems(nav_data);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line 
   }, [isBoss, isManager, isSales, isLogging]);
 
   return (

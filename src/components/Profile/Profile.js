@@ -40,7 +40,7 @@ function Profile() {
             ) : null}
             <div className="position-absolute bottom-0 start-50 translate-middle">
               <div className="mx-auto text-center d-flex justify-content-between">
-                <EditProfile />
+                {isBoss && <EditProfile />}
                 {isBoss && (
                   <ResetPassword role={"boss"} user_id={userInfo.boss_id} />
                 )}

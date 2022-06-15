@@ -56,7 +56,7 @@ export const UserProvider = (props) => {
     if (user && (isBoss || isManager || isSales)) {
       getUserInfo();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [user]);
 
   useEffect(() => {
@@ -65,7 +65,7 @@ export const UserProvider = (props) => {
     } else if (isSales && userInfo) {
       setImage(userInfo.sales_img);
     }
-  }, [isManager, isSales, userInfo]);
+  }, [isManager, isSales, isBoss, userInfo]);
 
   const getUserInfo = async () => {
     let url;

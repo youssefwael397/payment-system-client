@@ -4,12 +4,11 @@ import API_PATH from "./API_PATH";
 
 export const BranchesContext = createContext();
 export const BranchesProvider = (props) => {
-  const { token, isBoss } = useContext(UserContext);
+  const { token } = useContext(UserContext);
   const [branches, setBranches] = useState([]);
 
   useEffect(() => {
     getAllBranches();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   const getAllBranches = async () => {

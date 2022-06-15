@@ -2,19 +2,19 @@ import React, { useState, useEffect, createContext, useContext } from "react";
 import { UserContext } from "./UserProvider";
 import API_PATH from "./API_PATH";
 
-export const CategoriesContext = createContext();
-export const CategoriesProvider = (props) => {
-  const { token, userInfo, isManager } = useContext(UserContext);
-  const [categories, setCategories] = useState([]);
+export const ProcessesContext = createContext();
+export const ProcessesProvider = (props) => {
+  const { token, userInfo, isSales } = useContext(UserContext);
+  const [processes, setProcesses] = useState([]);
 
   useEffect(() => {
-    getAllCategories();
+    getAllProcesses();
     // eslint-disable-next-line
   }, [token, userInfo]);
 
-  const getAllCategories = async () => {
-    const url = `${API_PATH}/category/branch/${userInfo.branch_id}`;
-    if (token && isManager) {
+  const getAllProcesses = async () => {
+    if (token && userInfo.sales_id) {
+      const url = `${API_PATH}/process/sales/${userInfo.sales_id}`;
       const res = await fetch(url, {
         method: "GET",
         headers: {
@@ -23,18 +23,18 @@ export const CategoriesProvider = (props) => {
       });
       if (res.ok) {
         const data = await res.json();
-        setCategories([...data]);
+        setProcesses([...data]);
       }
     }
   };
 
   return (
-    <CategoriesContext.Provider
+    <ProcessesContext.Provider
       value={{
-        categories,
+        processes,
       }}
     >
       {props.children}
-    </CategoriesContext.Provider>
+    </ProcessesContext.Provider>
   );
 };

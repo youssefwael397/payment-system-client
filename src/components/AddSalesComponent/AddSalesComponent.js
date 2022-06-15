@@ -102,17 +102,17 @@ function AddSalesComponent() {
           setFacebookLink={setFacebookLink}
         />
         <AddImage
-          inputLabel={`صورة وجه البطاقة`}
+          inputLabel={`صورة المدير`}
           image={salesImg}
           setImage={setSalesImg}
         />
         <AddImage
-          inputLabel={`صورة ظهر البطاقة`}
+          inputLabel={`صورة وجه البطاقة`}
           image={salesFID}
           setImage={setSalesFID}
         />
         <AddImage
-          inputLabel={`صورة المدير`}
+          inputLabel={`صورة ظهر البطاقة`}
           image={salesBID}
           setImage={setSalesBID}
         />

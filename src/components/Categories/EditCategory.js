@@ -4,10 +4,10 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import API_PATH from "./../API_PATH";
 import { UserContext } from "./../UserProvider";
+import { TextField } from "@mui/material";
 import SubmitButton from "./../SubmitButton/SubmitButton";
 import LoadingSpinner from "./../LoadingSpinner/LoadingSpinner";
 import EditIcon from "@mui/icons-material/Edit";
-import AddImage from "./../AddImage/AddImage";
 
 const style = {
   position: "absolute",
@@ -20,9 +20,9 @@ const style = {
   p: 4,
 };
 
-function EditImage({ user_id, role }) {
+function EditCategory({ categoryInfo }) {
   const { token } = useContext(UserContext);
-  const [img, setImg] = useState();
+  const [categoryName, setCategoryName] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [err, setErr] = useState("");
   const [open, setOpen] = React.useState(false);
@@ -30,30 +30,52 @@ function EditImage({ user_id, role }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  useEffect(() => {
+    if (categoryInfo) {
+        setCategoryName(categoryInfo.category_name)
+    }
+  }, [categoryInfo]);
+
+  useEffect(() => {
+    if (success) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    }
+  }, [success]);
+
   const handleUpdate = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setErr("");
     setSuccess("");
 
-    const url = `${API_PATH}/${role}/update/image/${user_id}`;
+    const url = `${API_PATH}/category/update/${categoryInfo.category_id}`;
 
     let form = new FormData();
-    form.append(`${role}_img`, img);
+    form.append("category_name", categoryName);
 
     const res = await fetch(url, {
       method: "PUT",
       body: form,
       headers: { Authorization: token },
     });
-    window.location.reload();
+
+    const data = await res.json();
+    setIsLoading(false);
+    if (res.ok) {
+      setSuccess(`تم تعديل التصنيف بنجاح`);
+
+    } else {
+      setErr(`فشل في تعديل بيانات ${categoryInfo.sales_name}`);
+    }
   };
 
-  if (user_id) {
+  if (categoryInfo) {
     return (
-      <div className="position-absolute bottom-0 start-0 m-2">
+      <div>
         <Button size="small" color="primary" onClick={handleOpen}>
-          <i class="fa-solid fa-pen-to-square text-white fs-5"></i>
+          <EditIcon />
         </Button>
         <Modal
           open={open}
@@ -63,15 +85,17 @@ function EditImage({ user_id, role }) {
         >
           <Box sx={style}>
             <form sx={style} onSubmit={(e) => handleUpdate(e)}>
-              <AddImage
-                image={img}
-                setImage={setImg}
-                inputLabel="صورة المدير"
+              <NameInput
+                name={categoryName}
+                setName={setCategoryName}
+                label="اسم التصنيف"
+                placeholder={"موبايل"}
               />
+             
               <SubmitButton submitLabel="تعديل" />
               {success && <p className="text-center text-success">{success}</p>}
               {err && <p className="text-center text-danger">{err}</p>}
-              {isLoading ? <LoadingSpinner /> : null}
+              {isLoading && <LoadingSpinner />}
             </form>
           </Box>
         </Modal>
@@ -80,4 +104,31 @@ function EditImage({ user_id, role }) {
   }
 }
 
-export default EditImage;
+export default EditCategory;
+
+
+const NameInput = ({ name, setName, label, placeholder }) => {
+  let validName = true;
+  return (
+    <div
+      className={`mb-4 col-md-6 col-xs-12 font-cairo ${
+        !validName && "text-danger"
+      }`}
+    >
+      <label htmlFor={label}>{label}</label>
+      {/* <br /> */}
+      <TextField
+        className="mx-3"
+        required
+        id={label}
+        placeholder={placeholder}
+        variant="standard"
+        name="text"
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+    </div>
+  );
+};
+

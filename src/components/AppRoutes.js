@@ -13,6 +13,14 @@ import My404Component from "./My404Component/My404Component";
 import ROOT_PATH from "./ROOT_PATH.js";
 import ResetPassword from "./ResetPassword/ResetPassword";
 import Home from "./Home/Home";
+import SalesComponent from "./SalesComponent/SalesComponent";
+import Sales from "./Sales/Sales";
+import Clients from "./Clients/Clients";
+import Client from "./Client/Client";
+import Categories from "./Categories/Categories";
+import Products from "./Products/Products";
+import Processes from './Processes/Processes';
+import Process from './Processes/Process';
 
 export default function AppRoutes() {
   const root_route = ROOT_PATH;
@@ -34,14 +42,46 @@ export default function AppRoutes() {
           ) : null}
           {isManager ? (
             <>
-              <Route path={`${root_route}/managers`} element={<Managers />} />
+              <Route
+                path={`${root_route}/sales`}
+                element={<SalesComponent />}
+              />
               <Route path={`${root_route}/branches`} element={<Branches />} />
+              <Route
+                path={`${root_route}/sales/sales/:id`}
+                element={<Sales />}
+              />
+              <Route path={`${root_route}/clients`} element={<Clients />} />
+              <Route
+                path={`${root_route}/clients/client/:id`}
+                element={<Client />}
+              />
+              <Route
+                path={`${root_route}/categories`}
+                element={<Categories />}
+              />
+              <Route path={`${root_route}/products`} element={<Products />} />
+              <Route path={`${root_route}/processes`} element={<Processes />} />
+              <Route
+                path={`${root_route}/processes/process/:id`}
+                element={<Client />}
+              />
             </>
           ) : null}
           {isSales ? (
             <>
               <Route path={`${root_route}/managers`} element={<Managers />} />
               <Route path={`${root_route}/branches`} element={<Branches />} />
+              <Route path={`${root_route}/clients`} element={<Clients />} />
+              <Route
+                path={`${root_route}/clients/client/:id`}
+                element={<Client />}
+              />
+              <Route path={`${root_route}/processes`} element={<Processes />} />
+              <Route
+                path={`${root_route}/processes/process/:id`}
+                element={<Process />}
+              />
             </>
           ) : null}
 

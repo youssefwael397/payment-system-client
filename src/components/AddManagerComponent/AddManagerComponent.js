@@ -65,7 +65,6 @@ function AddManagerComponent() {
     return setSuccess(success);
   };
 
-
   useEffect(() => {
     if (success) {
       setTimeout(() => {
@@ -73,7 +72,6 @@ function AddManagerComponent() {
       }, 1000);
     }
   }, [success]);
-
 
   return (
     <form
@@ -108,18 +106,18 @@ function AddManagerComponent() {
         />
         <AddImage
           inputLabel={`صورة وجه البطاقة`}
-          image={managerImg}
-          setImage={setManagerImg}
-        />
-        <AddImage
-          inputLabel={`صورة ظهر البطاقة`}
           image={managerFID}
           setImage={setManagerFID}
         />
         <AddImage
-          inputLabel={`صورة المدير`}
+          inputLabel={`صورة ظهر البطاقة`}
           image={managerBID}
           setImage={setManagerBID}
+        />
+        <AddImage
+          inputLabel={`صورة المدير`}
+          image={managerImg}
+          setImage={setManagerImg}
         />
 
         <SubmitButton submitLabel="إضافة" />

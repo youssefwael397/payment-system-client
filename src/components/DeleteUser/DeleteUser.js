@@ -27,17 +27,11 @@ function DeleteUser({ role, user_id, user_name }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  useEffect(() => {
-    if (success) {
-      setTimeout(() => {
-        setSuccess(null);
-        window.location.reload();
-      }, 1000);
-    }
-  }, [success]);
+ 
 
-  const handleDelete = async () => {
-    const url = `${API_PATH}/${role}`;
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    const url = `${API_PATH}/${role}/${user_id}`;
 
     const res = await fetch(url, {
       method: "Delete",
@@ -45,7 +39,7 @@ function DeleteUser({ role, user_id, user_name }) {
     });
     const data = await res.json();
     if (res.ok) {
-      setSuccess(data);
+      window.location.reload();
     } else {
       setError(`فشل في حذف ${user_name}`);
     }
@@ -63,38 +57,40 @@ function DeleteUser({ role, user_id, user_name }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            حذف {user_name}
-          </Typography>
-          <Typography id="modal-modal-description" className="fs-5 my-3">
-            هل انت متأكد؟
-          </Typography>
-          <Button
-            className="mx-2"
-            variant="outlined"
-            size="small"
-            onClick={() => handleClose()}
-          >
-            لا
-          </Button>
-          <Button
-            variant="contained"
-            size="small"
-            color="error"
-            onClick={() => handleDelete(user_id)}
-          >
-            نعم حذف
-          </Button>
-          {success ? (
-            <Alert severity="success" color="info">
-              {success}
-            </Alert>
-          ) : null}
-          {error ? (
-            <Alert severity="error" color="info">
-              {error}
-            </Alert>
-          ) : null}
+          <form sx={style} onSubmit={(e) => handleDelete(e)}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              حذف {user_name}
+            </Typography>
+            <Typography id="modal-modal-description" className="fs-5 my-3">
+              هل انت متأكد؟
+            </Typography>
+            <Button
+              className="mx-2"
+              variant="outlined"
+              size="small"
+              onClick={() => handleClose()}
+            >
+              لا
+            </Button>
+            <Button
+              variant="contained"
+              size="small"
+              color="error"
+              type="submit"
+            >
+              نعم حذف
+            </Button>
+            {success ? (
+              <Alert className="mt-2" severity="success" color="info">
+                {success}
+              </Alert>
+            ) : null}
+            {error ? (
+              <Alert className="mt-2" severity="error" color="error">
+                {"  " + error}
+              </Alert>
+            ) : null}
+          </form>
         </Box>
       </Modal>
     </div>

@@ -100,7 +100,7 @@ function LoginForm() {
           </Button>
         </div>
         
-        <div className="mt-2 text-center">
+        {/* <div className="mt-2 text-center">
           <NavLink
             className=" text-muted text-decoration-none"
             exact
@@ -110,7 +110,7 @@ function LoginForm() {
             هل نسيت كلمة المرور؟
           </NavLink>
           <br />
-        </div>
+        </div> */}
       </div>
     </form>
   );

@@ -13,27 +13,23 @@ import { Link } from "react-router-dom";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
-import { UserContext } from "./../UserProvider";
-// import DeleteUser from "./../DeleteUser/DeleteUser";
-// import API_PATH from "../../API_PATH";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { ManagersContext } from "./../ManagersProvider";
+// import { ManagersContext } from "./../ManagersProvider";
 import LoadingSpinner from "./../LoadingSpinner/LoadingSpinner";
+import { SalesContext } from "./../SalesProvider";
 
-export default function Managers() {
-  const { user, token } = useContext(UserContext);
-  const { managers } = useContext(ManagersContext);
-  const [filteredManagers, setFilteredManagers] = useState([]);
+export default function SalesComponent() {
+  const { sales } = useContext(SalesContext);
+  //   const { managers } = useContext(ManagersContext);
+  const [filteredSales, setFilteredSales] = useState([]);
   const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
     if (searchValue !== "") {
-      setFilteredManagers(
-        managers.filter(
+      setFilteredSales(
+        sales.filter(
           (user) =>
-            user.manager_name
+            user.sales_name
               .toLowerCase()
               .includes(searchValue.toLowerCase().trim()) ||
             user.national_id
@@ -46,11 +42,11 @@ export default function Managers() {
         )
       );
     } else {
-      setFilteredManagers(managers);
+      setFilteredSales(sales);
     }
-  }, [managers, searchValue]);
+  }, [sales, searchValue]);
 
-  if (managers)
+  if (sales)
     return (
       <div className="AdminPanel-name my-2 rtl">
         {/* search input */}
@@ -68,63 +64,56 @@ export default function Managers() {
 
         {/* managers Container */}
         <div className="row mt-4">
-          {filteredManagers.map((manager) => (
+          {filteredSales.map((sales) => (
             <Card
-              key={manager.manager_name}
+              key={sales.sales_name}
               className="col-lg-4 col-md-6 col-xs-12 mb-4 p-4"
             >
               <CardMedia className="text-center mx-auto">
                 <LazyLoadImage
-                  alt={manager.manager_name}
-                  src={`data:image/png;base64, ${manager.manager_img}`}
+                  alt={sales.sales_name}
+                  src={`data:image/png;base64, ${sales.sales_img}`}
                   // height="400"
-                  width={'100%'}
+                  width={"100%"}
                 />
               </CardMedia>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                  {manager.manager_name}
+                  {sales.sales_name}
                 </Typography>
                 <Typography color="text.secondary">
-                  <EmailIcon className="my-1" /> {manager.email}
+                  <EmailIcon className="my-1" /> {sales.email}
                   <br />
-                  <PhoneIcon className="my-1" /> {manager.phone}
+                  <PhoneIcon className="my-1" /> {sales.phone}
                   <br />
-                  {manager.national_id}
+                  {sales.national_id}
                 </Typography>
               </CardContent>
               <CardActions className="d-flex justify-content-between">
                 <div>
                   <a
                     className="text-decoration-none"
-                    href={manager.facebook_link}
+                    href={sales.facebook_link}
                     target="_blank"
                     rel="noreferrer"
                   >
                     <Button size="small">
-                      <FacebookIcon /> Facebook
+                      <FacebookIcon /> الفيسبوك
                     </Button>
                   </a>
                   <Link
                     className="text-decoration-none mx-2"
-                    to={`manager/${manager.manager_id}`}
+                    to={`sales/${sales.sales_id}`}
                   >
-                    More
+                    المزيد
                   </Link>
                 </div>
-                {/* <div>
-                  <DeleteUser
-                    role="manager"
-                    user_name={manager.manager_name}
-                    user_id={manager.manager_id}
-                  />
-                </div> */}
               </CardActions>
             </Card>
           ))}
-          {filteredManagers.length < 1 && searchValue ? (
+          {filteredSales.length < 1 && searchValue ? (
             <h4 className="mt-3">
-              لا يوجد مدير بهذه البيانات{" "}
+              لا يوجد مندوب بهذه البيانات{" "}
               <span className="text-primary">{searchValue.trim()}</span>
             </h4>
           ) : null}

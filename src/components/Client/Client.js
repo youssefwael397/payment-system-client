@@ -9,32 +9,32 @@ import { UserContext } from "./../UserProvider";
 import LoadingSpinner from "./../LoadingSpinner/LoadingSpinner";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import EditManager from "./../EditManager/EditManager";
 import EditImage from "./../EditImage/EditImage";
 import EditNationalImages from "./../EditNationalImages/EditNationalImages";
 import ResetPassword from "./../ResetPassword/ResetPassword";
+import EditSales from "./../EditSales/EditSales";
+import userIcon from "./user-icon.png";
 
-export default function Manager() {
+export default function Client() {
   const { id } = useParams();
-  const { user, token } = useContext(UserContext);
-  const [managerInfo, setManagerInfo] = useState({});
+  const { token, isManager } = useContext(UserContext);
+  const [clientInfo, setClientInfo] = useState({});
 
   useEffect(() => {
-    getManagerInfo();
-    // eslint-disable-next-line 
+    getClientInfo();
+    // eslint-disable-next-line
   }, []);
 
-  const getManagerInfo = async () => {
-    const res = await fetch(`${API_PATH}/manager/${id}`, {
+  const getClientInfo = async () => {
+    const res = await fetch(`${API_PATH}/client/${id}`, {
       headers: { Authorization: token },
     });
     const data = await res.json();
-    setManagerInfo({ ...data });
+    setClientInfo({ ...data });
   };
 
-  if (managerInfo) {
+  if (clientInfo) {
     return (
       <div className="container-xl">
         <div className="my-4 rounded bg-white p-4 position-relative w-100">
@@ -42,56 +42,49 @@ export default function Manager() {
             <div className="col-lg-6 col-sm-6 col-xs-12 text-center mx-auto  mb-3">
               <div className=" position-relative">
                 <img
-                  className="profile-image rounded text-center mx-auto w-100"
-                  alt={managerInfo.manager_name}
-                  src={`data:image/png;base64, ${managerInfo.manager_img}`}
-                  height={"40%"}
+                  className="profile-image rounded text-center mx-auto "
+                  alt={clientInfo.client_name}
+                  src={userIcon}
+                  height={"100px"}
                 />
-                <EditImage user_id={id} role="manager" />
               </div>
             </div>
             <div className=" col-lg-6 col-sm-6 col-xs-12 ">
               <div className="d-flex justify-content-between">
                 <div>
-                  <h2 className="text-primary">{managerInfo.manager_name}</h2>
-                  {managerInfo.Branch && (
-                    <p className="text-black-50">
-                      مدير فرع {managerInfo.Branch.branch_name} بمحافظة{" "}
-                      {managerInfo.Branch.branch_address}
-                    </p>
-                  )}
+                  <h2 className="text-primary">{clientInfo.client_name}</h2>
                 </div>
-                <div className="d-flex justify-content-between">
-                  <ResetPassword id={id} role="manager" />
-                  <EditManager userInfo={managerInfo} />
-                  <DeleteUser
-                    user_name={managerInfo.manager_name}
-                    user_id={managerInfo.manager_id}
-                    role="manager"
-                  />
-                </div>
+                {isManager && (
+                  <div className="d-flex justify-content-between">
+                    <ResetPassword id={id} role="client" />
+                    <EditSales userInfo={clientInfo} />
+                    <DeleteUser
+                      user_name={clientInfo.client_name}
+                      user_id={clientInfo.client_id}
+                      role="client"
+                    />
+                  </div>
+                )}
               </div>
               <hr className="w-25 rounded line" />
-              <p className="text-black-50 my-3">
-                <EmailIcon /> {managerInfo.email}
-              </p>
+
               <p className="text-black-50">
                 <i className="fa-solid fa-address-card fs-5"></i>
-                {" " + managerInfo.national_id}
+                {" " + clientInfo.national_id}
                 <NationalId
-                  user_id={managerInfo.manager_id}
-                  faceImg={managerInfo.face_national_id_img}
-                  backImg={managerInfo.back_national_id_img}
+                  user_id={clientInfo.client_id}
+                  faceImg={clientInfo.face_national_id_img}
+                  backImg={clientInfo.back_national_id_img}
                 />
               </p>
               <p className="text-black-50">
-                <PhoneIcon /> {managerInfo.phone}
+                <PhoneIcon /> {clientInfo.phone}
               </p>
               <p>
                 <a
                   className="text-decoration-none text-black-50"
                   target="_blank"
-                  href={managerInfo.facebook_link}
+                  href={clientInfo.facebook_link}
                   rel="noreferrer"
                 >
                   <FacebookIcon /> Facebook
@@ -108,6 +101,7 @@ export default function Manager() {
 }
 
 const NationalId = ({ user_id, faceImg, backImg }) => {
+  const { isManager } = useContext(UserContext);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -120,7 +114,7 @@ const NationalId = ({ user_id, faceImg, backImg }) => {
     bgcolor: "background.paper",
     boxShadow: 24,
     p: 4,
-    overflow: 'auto'
+    overflow: "auto",
   };
 
   return (
@@ -145,7 +139,7 @@ const NationalId = ({ user_id, faceImg, backImg }) => {
             alt={"صورة ظهر البطاقة"}
             src={`data:image/png;base64, ${backImg}`}
           />
-          <EditNationalImages user_id={user_id} role="manager" />
+          {isManager && <EditNationalImages user_id={user_id} role="sales" />}
         </Box>
       </Modal>
     </>

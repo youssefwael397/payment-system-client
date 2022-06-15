@@ -2,19 +2,21 @@ import React, { useState, useEffect, createContext, useContext } from "react";
 import { UserContext } from "./UserProvider";
 import API_PATH from "./API_PATH";
 
-export const ManagersContext = createContext();
-export const ManagersProvider = (props) => {
+export const SalesContext = createContext();
+export const SalesProvider = (props) => {
   const { token, userInfo } = useContext(UserContext);
-  const [managers, setManagers] = useState([]);
+  const [sales, setSales] = useState([]);
 
   useEffect(() => {
-    getAllManagers();
+    if (userInfo) {
+      getAllSales();
+    }
     // eslint-disable-next-line
-  }, []);
+  }, [token, userInfo]);
 
-  const getAllManagers = async () => {
-    if (token ) {
-      const url = `${API_PATH}/manager/`;
+  const getAllSales = async () => {
+    if (token && userInfo.branch_id) {
+      const url = `${API_PATH}/sales/branch/${userInfo.branch_id}`;
       const res = await fetch(url, {
         method: "GET",
         headers: {
@@ -23,17 +25,17 @@ export const ManagersProvider = (props) => {
       });
 
       const data = await res.json();
-      setManagers([...data]);
+      setSales([...data]);
     }
   };
 
   return (
-    <ManagersContext.Provider
+    <SalesContext.Provider
       value={{
-        managers,
+        sales,
       }}
     >
       {props.children}
-    </ManagersContext.Provider>
+    </SalesContext.Provider>
   );
 };

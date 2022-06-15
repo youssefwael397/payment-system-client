@@ -4,9 +4,11 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import API_PATH from "./../API_PATH";
 import { UserContext } from "./../UserProvider";
+import { TextField } from "@mui/material";
 import SubmitButton from "./../SubmitButton/SubmitButton";
 import LoadingSpinner from "./../LoadingSpinner/LoadingSpinner";
-import AddImage from "./../AddImage/AddImage";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const style = {
   position: "absolute",
@@ -19,9 +21,9 @@ const style = {
   p: 4,
 };
 
-function EditImage({ user_id, role, label }) {
+function DeleteProduct({ productInfo }) {
   const { token } = useContext(UserContext);
-  const [img, setImg] = useState();
+  const [productName, setProductName] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [err, setErr] = useState("");
   const [open, setOpen] = React.useState(false);
@@ -29,36 +31,48 @@ function EditImage({ user_id, role, label }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleUpdate = async (e) => {
+  useEffect(() => {
+    if (productInfo) {
+      setProductName(productInfo.product_name);
+    }
+  }, [productInfo]);
+
+  useEffect(() => {
+    if (success) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    }
+  }, [success]);
+
+  const handleDelete = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setErr("");
     setSuccess("");
 
-    const url = `${API_PATH}/${role}/update/image/${user_id}`;
-
-    let form = new FormData();
-    form.append(`${role === "branch" ? "logo" : role + "_img"}`, img);
+    const url = `${API_PATH}/product/${productInfo.product_id}`;
 
     const res = await fetch(url, {
-      method: "PUT",
-      body: form,
+      method: "DELETE",
       headers: { Authorization: token },
     });
-    // const data = await res.json()
-    setIsLoading(false)
+
+    // const data = await res.json();
+    setIsLoading(false);
     if (res.ok) {
+      setSuccess(`تم حذف المنتج بنجاح`);
       window.location.reload();
-    }else{
-      setErr('فشل في تعديل الصورة')
+    } else {
+      setErr(`فشل في حذف المنتج ${productInfo.product_name}`);
     }
   };
 
-  if (user_id) {
+  if (productInfo) {
     return (
-      <div className="position-absolute bottom-0 start-0 m-2">
-        <Button size="small" color="primary" onClick={handleOpen}>
-          <i class="fa-solid fa-pen-to-square text-white fs-5"></i>
+      <div>
+        <Button size="small" color="error" onClick={handleOpen}>
+          <DeleteIcon />
         </Button>
         <Modal
           open={open}
@@ -67,16 +81,13 @@ function EditImage({ user_id, role, label }) {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <form sx={style} onSubmit={(e) => handleUpdate(e)}>
-              <AddImage
-                image={img}
-                setImage={setImg}
-                inputLabel={`${label ? label : "صورة المدير"}`}
-              />
-              <SubmitButton submitLabel="تعديل" />
+            <form sx={style} onSubmit={(e) => handleDelete(e)}>
+              <p>هل انت متأكد من حذف {productInfo.product_name}</p>
+
+              <SubmitButton submitLabel="حذف" />
               {success && <p className="text-center text-success">{success}</p>}
               {err && <p className="text-center text-danger">{err}</p>}
-              {isLoading ? <LoadingSpinner /> : null}
+              {isLoading && <LoadingSpinner />}
             </form>
           </Box>
         </Modal>
@@ -85,4 +96,4 @@ function EditImage({ user_id, role, label }) {
   }
 }
 
-export default EditImage;
+export default DeleteProduct;

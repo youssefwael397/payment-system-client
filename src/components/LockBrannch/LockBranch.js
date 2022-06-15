@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
@@ -6,7 +6,6 @@ import API_PATH from "./../API_PATH";
 import { UserContext } from "./../UserProvider";
 import SubmitButton from "./../SubmitButton/SubmitButton";
 import LoadingSpinner from "./../LoadingSpinner/LoadingSpinner";
-import AddImage from "./../AddImage/AddImage";
 
 const style = {
   position: "absolute",
@@ -19,9 +18,8 @@ const style = {
   p: 4,
 };
 
-function EditImage({ user_id, role, label }) {
+function LockBranch({ id, role }) {
   const { token } = useContext(UserContext);
-  const [img, setImg] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [err, setErr] = useState("");
   const [open, setOpen] = React.useState(false);
@@ -35,30 +33,26 @@ function EditImage({ user_id, role, label }) {
     setErr("");
     setSuccess("");
 
-    const url = `${API_PATH}/${role}/update/image/${user_id}`;
-
-    let form = new FormData();
-    form.append(`${role === "branch" ? "logo" : role + "_img"}`, img);
+    const url = `${API_PATH}/branch/${role}/${id}`;
 
     const res = await fetch(url, {
       method: "PUT",
-      body: form,
       headers: { Authorization: token },
     });
-    // const data = await res.json()
-    setIsLoading(false)
     if (res.ok) {
       window.location.reload();
-    }else{
-      setErr('فشل في تعديل الصورة')
     }
   };
 
-  if (user_id) {
+  if (id) {
     return (
-      <div className="position-absolute bottom-0 start-0 m-2">
+      <>
         <Button size="small" color="primary" onClick={handleOpen}>
-          <i class="fa-solid fa-pen-to-square text-white fs-5"></i>
+          {role === "unlock" ? (
+            <i class="fa-solid fa-lock"></i>
+          ) : (
+            <i class="fa-solid fa-lock-open"></i>
+          )}
         </Button>
         <Modal
           open={open}
@@ -68,21 +62,21 @@ function EditImage({ user_id, role, label }) {
         >
           <Box sx={style}>
             <form sx={style} onSubmit={(e) => handleUpdate(e)}>
-              <AddImage
-                image={img}
-                setImage={setImg}
-                inputLabel={`${label ? label : "صورة المدير"}`}
-              />
-              <SubmitButton submitLabel="تعديل" />
+              <p>هل انت متأكد من غلق الفرع؟</p>
+              <span>
+                ملحوظة: غلق الفرع يؤدي إلى عدم إمكانية كلا من مدير و مناديب
+                الفرع
+              </span>
+              <SubmitButton submitLabel={role === 'lock' ? "غلق" : "فتح"} />
               {success && <p className="text-center text-success">{success}</p>}
               {err && <p className="text-center text-danger">{err}</p>}
               {isLoading ? <LoadingSpinner /> : null}
             </form>
           </Box>
         </Modal>
-      </div>
+      </>
     );
   }
 }
 
-export default EditImage;
+export default LockBranch;
