@@ -1,1 +1,3 @@
 [0602/014414.669:ERROR:registration_protocol_win.cc(106)] CreateFile: The system cannot find the file specified. (0x2)
+[0616/144407.910:ERROR:registration_protocol_win.cc(106)] CreateFile: The system cannot find the file specified. (0x2)
+[0616/144408.632:ERROR:crashpad_client_win.cc(814)] not connected

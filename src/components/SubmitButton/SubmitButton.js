@@ -8,7 +8,7 @@ import {
 
 function SubmitButton({submitLabel}) {
   return (
-    <div className="mb-4 col-md-6 col-xs-12 font-cairo">
+    <div className="mb-2 col-md-6 col-xs-12 font-cairo">
       <Button
         className="font-primary fs-6 w-100"
         type="submit"

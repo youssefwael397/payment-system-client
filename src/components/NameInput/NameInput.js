@@ -5,7 +5,7 @@ import { TextField } from "@mui/material";
 const NameInput = ({ name, setName, label, placeholder }) => {
   let validName = true;
   if (name) {
-    const pattern = /^[أ-ي]{2,}\s[أ-ي]{2,}\s[أ-ي]{2,}$/;
+    const pattern = /^([أ-ي]{2,}\s){1,}[أ-ي]{2,}$/;
     validName = pattern.test(name);
   }
   return (

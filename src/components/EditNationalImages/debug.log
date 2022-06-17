@@ -1,0 +1,2 @@
+[0616/144407.734:ERROR:registration_protocol_win.cc(106)] CreateFile: The system cannot find the file specified. (0x2)
+[0616/144407.809:FATAL:v8_initializer.cc(507)] Error mapping V8 startup snapshot file

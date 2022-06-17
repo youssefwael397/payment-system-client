@@ -4,7 +4,7 @@ import API_PATH from "./API_PATH";
 
 export const ProcessesContext = createContext();
 export const ProcessesProvider = (props) => {
-  const { token, userInfo, isSales } = useContext(UserContext);
+  const { token, userInfo, isManager } = useContext(UserContext);
   const [processes, setProcesses] = useState([]);
 
   useEffect(() => {
@@ -13,8 +13,11 @@ export const ProcessesProvider = (props) => {
   }, [token, userInfo]);
 
   const getAllProcesses = async () => {
-    if (token && userInfo.sales_id) {
-      const url = `${API_PATH}/process/sales/${userInfo.sales_id}`;
+    let url = `${API_PATH}/process/sales/${userInfo.sales_id}`;
+    if (token && userInfo) {
+      if (isManager) {
+        url = `${API_PATH}/process/branch/${userInfo.branch_id}`;
+      }
       const res = await fetch(url, {
         method: "GET",
         headers: {

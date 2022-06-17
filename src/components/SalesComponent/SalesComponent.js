@@ -84,13 +84,11 @@ export default function SalesComponent() {
                 <Typography color="text.secondary">
                   <EmailIcon className="my-1" /> {sales.email}
                   <br />
+                  <i className="fa-solid fa-address-card fs-5"></i>{" "}
+                  {sales.national_id}
+                  <br />
                   <PhoneIcon className="my-1" /> {sales.phone}
                   <br />
-                  {sales.national_id}
-                </Typography>
-              </CardContent>
-              <CardActions className="d-flex justify-content-between">
-                <div>
                   <a
                     className="text-decoration-none"
                     href={sales.facebook_link}
@@ -98,14 +96,18 @@ export default function SalesComponent() {
                     rel="noreferrer"
                   >
                     <Button size="small">
-                      <FacebookIcon /> الفيسبوك
+                      <FacebookIcon /> رابط الفيسبوك
                     </Button>
                   </a>
+                </Typography>
+              </CardContent>
+              <CardActions className="d-flex justify-content-between">
+                <div>
                   <Link
                     className="text-decoration-none mx-2"
                     to={`sales/${sales.sales_id}`}
                   >
-                    المزيد
+                    المزيد...
                   </Link>
                 </div>
               </CardActions>

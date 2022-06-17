@@ -10,7 +10,6 @@ import LoadingSpinner from "./../LoadingSpinner/LoadingSpinner";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-
 const style = {
   position: "absolute",
   top: "50%",
@@ -34,7 +33,7 @@ function EditSales({ categoryInfo }) {
 
   useEffect(() => {
     if (categoryInfo) {
-        setCategoryName(categoryInfo.category_name)
+      setCategoryName(categoryInfo.category_name);
     }
   }, [categoryInfo]);
 
@@ -59,11 +58,11 @@ function EditSales({ categoryInfo }) {
       headers: { Authorization: token },
     });
 
-    const data = await res.json();
+    // const data = await res.json();
     setIsLoading(false);
     if (res.ok) {
-      setSuccess(`تم حذف التصنيف بنجاح`);
-
+      // setSuccess(`تم حذف التصنيف بنجاح`);
+      window.location.reload();
     } else {
       setErr(`فشل في حذف التصنيف ${categoryInfo.sales_name}`);
     }
@@ -73,8 +72,8 @@ function EditSales({ categoryInfo }) {
     return (
       <div>
         <Button size="small" color="error" onClick={handleOpen}>
-        <DeleteIcon />
-      </Button>
+          <DeleteIcon />
+        </Button>
         <Modal
           open={open}
           onClose={handleClose}
@@ -83,8 +82,9 @@ function EditSales({ categoryInfo }) {
         >
           <Box sx={style}>
             <form sx={style} onSubmit={(e) => handleDelete(e)}>
-              <p>هل انت متأكد من حذف {categoryInfo.category_name}</p>
-             
+              <h5>هل انت متأكد من حذف {categoryInfo.category_name}؟</h5>
+              <p>ملحوظة: لا يمكنك حذف التصنيف عند وجود منتجات لهذا التصنيف</p>
+
               <SubmitButton submitLabel="حذف" />
               {success && <p className="text-center text-success">{success}</p>}
               {err && <p className="text-center text-danger">{err}</p>}
@@ -98,7 +98,6 @@ function EditSales({ categoryInfo }) {
 }
 
 export default EditSales;
-
 
 const NameInput = ({ name, setName, label, placeholder }) => {
   let validName = true;
@@ -124,4 +123,3 @@ const NameInput = ({ name, setName, label, placeholder }) => {
     </div>
   );
 };
-

@@ -39,6 +39,18 @@ const NavBar = () => {
         path: `${root_route}/sales`,
         title: "المناديب",
       },
+      {
+        path: `${root_route}/clients`,
+        title: "العملاء",
+      },
+      {
+        path: `${root_route}/processes`,
+        title: "العمليات",
+      },
+      {
+        path: `${root_route}/print`,
+        title: "طباعة",
+      },
     ]);
   };
 
@@ -71,7 +83,7 @@ const NavBar = () => {
       isLogging: isLogging,
     };
     setNavItems(nav_data);
-    // eslint-disable-next-line 
+    // eslint-disable-next-line
   }, [isBoss, isManager, isSales, isLogging]);
 
   return (
@@ -116,12 +128,12 @@ const NavBar = () => {
             {isLogging && (
               <>
                 <li className={`nav-item`}>
-                  <NavLink className="nav-link p-3"  to="/profile">
+                  <NavLink className="nav-link p-3" to="/profile">
                     الصفحة الشخصية
                   </NavLink>
                 </li>
                 <li className={`nav-item`}>
-                  <NavLink className="nav-link p-3"  to="/home">
+                  <NavLink className="nav-link p-3" to="/home">
                     الصفحة الرئيسية
                   </NavLink>
                 </li>
@@ -130,7 +142,7 @@ const NavBar = () => {
 
             {navListItems.map((item) => (
               <li className={`nav-item`} key={item.path}>
-                <NavLink className="nav-link p-3"  to={item.path}>
+                <NavLink className="nav-link p-3" to={item.path}>
                   {item.title}
                 </NavLink>
               </li>

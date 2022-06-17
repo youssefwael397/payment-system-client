@@ -57,11 +57,11 @@ export default function Sales() {
                 <div className="d-flex justify-content-between">
                   <ResetPassword id={id} role="sales" />
                   <EditSales userInfo={salesInfo} />
-                  <DeleteUser
+                  {/* <DeleteUser
                     user_name={salesInfo.sales_name}
                     user_id={salesInfo.sales_id}
                     role="sales"
-                  />
+                  /> */}
                 </div>
               </div>
               <hr className="w-25 rounded line" />
@@ -110,6 +110,7 @@ const NationalId = ({ user_id, faceImg, backImg }) => {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 400,
+    height: 500,
     bgcolor: "background.paper",
     boxShadow: 24,
     p: 4,

@@ -19,8 +19,9 @@ import Clients from "./Clients/Clients";
 import Client from "./Client/Client";
 import Categories from "./Categories/Categories";
 import Products from "./Products/Products";
-import Processes from './Processes/Processes';
-import Process from './Processes/Process';
+import Processes from "./Processes/Processes";
+import Process from "./Processes/Process";
+import PrintInsurance from "./PrintInsurance/PrintInsurance";
 
 export default function AppRoutes() {
   const root_route = ROOT_PATH;
@@ -64,7 +65,11 @@ export default function AppRoutes() {
               <Route path={`${root_route}/processes`} element={<Processes />} />
               <Route
                 path={`${root_route}/processes/process/:id`}
-                element={<Client />}
+                element={<Process />}
+              />
+              <Route
+                path={`${root_route}/print`}
+                element={<PrintInsurance />}
               />
             </>
           ) : null}

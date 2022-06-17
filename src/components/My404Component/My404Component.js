@@ -21,7 +21,7 @@ export default function My404Component() {
             <Link
               className="text-decoration-none"
               // exact
-              to={isLogging ? `${root_route}/home` : `${root_route}/login`}
+              to={isLogging ? `${root_route}/home` : `${root_route}/`}
             >
               الرجوع للصفحة الرئيسية
             </Link>

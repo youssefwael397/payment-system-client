@@ -4,10 +4,10 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import API_PATH from "./../API_PATH";
 import { UserContext } from "./../UserProvider";
-import { TextField } from "@mui/material";
 import SubmitButton from "./../SubmitButton/SubmitButton";
 import LoadingSpinner from "./../LoadingSpinner/LoadingSpinner";
 import EditIcon from "@mui/icons-material/Edit";
+import { TextField } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -20,11 +20,9 @@ const style = {
   p: 4,
 };
 
-function EditProduct({ productInfo }) {
+function EditProcessMonth({ monthInfo }) {
   const { token } = useContext(UserContext);
-  const [productName, setProductName] = useState();
-  const [productPrice, setProductPrice] = useState();
-  const [count, setCount] = useState();
+  const [price, setPrice] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [err, setErr] = useState("");
   const [open, setOpen] = React.useState(false);
@@ -33,12 +31,10 @@ function EditProduct({ productInfo }) {
   const handleClose = () => setOpen(false);
 
   useEffect(() => {
-    if (productInfo) {
-      setProductName(productInfo.product_name);
-      setProductPrice(productInfo.product_price);
-      setCount(productInfo.count);
+    if (monthInfo) {
+      setPrice(monthInfo.price);
     }
-  }, [productInfo]);
+  }, [monthInfo]);
 
   useEffect(() => {
     if (success) {
@@ -54,12 +50,10 @@ function EditProduct({ productInfo }) {
     setErr("");
     setSuccess("");
 
-    const url = `${API_PATH}/product/update/${productInfo.product_id}`;
+    const url = `${API_PATH}/process/month/update/${monthInfo.process_month_id}`;
 
     let form = new FormData();
-    form.append("product_name", productName);
-    form.append("product_price", productPrice);
-    form.append("count", count);
+    form.append("price", price);
 
     const res = await fetch(url, {
       method: "PUT",
@@ -70,13 +64,13 @@ function EditProduct({ productInfo }) {
     const data = await res.json();
     setIsLoading(false);
     if (res.ok) {
-      setSuccess(`تم تعديل المنتج بنجاح`);
+      setSuccess(`تم تعديل السعر بنجاح`);
     } else {
-      setErr(`فشل في تعديل بيانات ${productInfo.sales_name}`);
+      setErr(`فشل في تعديل السعر ${monthInfo.sales_name}`);
     }
   };
 
-  if (productInfo) {
+  if (monthInfo) {
     return (
       <div>
         <Button size="small" color="primary" onClick={handleOpen}>
@@ -89,24 +83,12 @@ function EditProduct({ productInfo }) {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
+            <h5>تعديل قيمة شهر {monthInfo.date}</h5>
             <form sx={style} onSubmit={(e) => handleUpdate(e)}>
-              <NameInput
-                name={productName}
-                setName={setProductName}
-                label="اسم المنتج"
-                placeholder={"موبايل"}
-              />
-              <NameInput
-                name={productPrice}
-                setName={setProductPrice}
-                label="سعر المنتج"
-                placeholder={"7999"}
-              />
-              <NameInput
-                name={count}
-                setName={setCount}
-                label="عدد المنتج"
-                placeholder={"10"}
+              <NumberInput
+                number={price}
+                setNumber={setPrice}
+                placeholder={"500"}
               />
               <SubmitButton submitLabel="تعديل" />
               {success && <p className="text-center text-success">{success}</p>}
@@ -120,29 +102,31 @@ function EditProduct({ productInfo }) {
   }
 }
 
-export default EditProduct;
-
-const NameInput = ({ name, setName, label, placeholder }) => {
-  let validName = true;
+const NumberInput = ({ number, setNumber, placeholder }) => {
+  let validDate = true;
+  if (number) {
+    const pattern = /^\d{1,}$/;
+    validDate = pattern.test(number);
+  }
   return (
     <div
       className={`mb-4 col-md-6 col-xs-12 font-cairo ${
-        !validName && "text-danger"
+        !validDate && "text-danger"
       }`}
     >
-      <label htmlFor={label}>{label}</label>
       {/* <br /> */}
       <TextField
         className="mx-3"
         required
-        id={label}
         placeholder={placeholder}
         variant="standard"
         name="text"
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
+        type="number"
+        value={number}
+        onChange={(e) => setNumber(e.target.value)}
       />
     </div>
   );
 };
+
+export default EditProcessMonth;

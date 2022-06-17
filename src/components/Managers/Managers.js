@@ -78,7 +78,7 @@ export default function Managers() {
                   alt={manager.manager_name}
                   src={`data:image/png;base64, ${manager.manager_img}`}
                   // height="400"
-                  width={'100%'}
+                  width={"100%"}
                 />
               </CardMedia>
               <CardContent>
@@ -88,13 +88,11 @@ export default function Managers() {
                 <Typography color="text.secondary">
                   <EmailIcon className="my-1" /> {manager.email}
                   <br />
+                  <i className="fa-solid fa-address-card fs-5"></i>{" "}
+                  {manager.national_id}
+                  <br />
                   <PhoneIcon className="my-1" /> {manager.phone}
                   <br />
-                  {manager.national_id}
-                </Typography>
-              </CardContent>
-              <CardActions className="d-flex justify-content-between">
-                <div>
                   <a
                     className="text-decoration-none"
                     href={manager.facebook_link}
@@ -102,14 +100,18 @@ export default function Managers() {
                     rel="noreferrer"
                   >
                     <Button size="small">
-                      <FacebookIcon /> Facebook
+                      <FacebookIcon /> رابط الفيسبوك
                     </Button>
                   </a>
+                </Typography>
+              </CardContent>
+              <CardActions className="d-flex justify-content-between">
+                <div>
                   <Link
                     className="text-decoration-none mx-2"
                     to={`manager/${manager.manager_id}`}
                   >
-                    More
+                    المزيد...
                   </Link>
                 </div>
                 {/* <div>

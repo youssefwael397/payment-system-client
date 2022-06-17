@@ -6,6 +6,9 @@ import userIcon from "./user-icon.png";
 import CircularProgress from "@mui/material/CircularProgress";
 import EditProfile from "./../EditProfile/EditProfile";
 import ResetPassword from "./../ResetPassword/ResetPassword";
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
+
 function Profile() {
   const { user, userInfo, image, isBoss, isLogging, isManager, isSales } =
     useContext(UserContext);
@@ -36,6 +39,10 @@ function Profile() {
                 {userInfo.phone && <p>{userInfo.phone}</p>}
                 {userInfo.national_id && <p>{userInfo.national_id}</p>}
                 {userInfo.Branch && <p>فرع {userInfo.Branch.branch_name}</p>}
+                <NationalId
+                  faceImg={userInfo.face_national_id_img}
+                  backImg={userInfo.back_national_id_img}
+                />
               </>
             ) : null}
             <div className="position-absolute bottom-0 start-50 translate-middle">
@@ -58,5 +65,50 @@ function Profile() {
     );
   }
 }
+
+const NationalId = ({ faceImg, backImg }) => {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    height: 600,
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    p: 4,
+    overflow: "auto",
+  };
+
+  return (
+    <>
+      <Button size="medium" color="primary" onClick={handleOpen}>
+        عرض صورة البطاقة
+      </Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <img
+            className=" profile-image rounded text-center mx-auto w-100 my-2"
+            alt={"صورة وجه البطاقة"}
+            src={`data:image/png;base64, ${faceImg}`}
+          />
+          <img
+            className=" profile-image rounded text-center mx-auto w-100 my-2"
+            alt={"صورة ظهر البطاقة"}
+            src={`data:image/png;base64, ${backImg}`}
+          />
+        </Box>
+      </Modal>
+    </>
+  );
+};
 
 export default Profile;

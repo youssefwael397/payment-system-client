@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ProcessesContext } from "../ProcessesProvider";
-import EditProduct from "./EditProduct";
-import DeleteProduct from "./DeleteProduct";
+import { UserContext } from "../UserProvider";
+// import EditProduct from "./EditProduct";
+// import DeleteProduct from "./DeleteProduct";
 import { TextField } from "@mui/material";
 import { Link } from "react-router-dom";
 
 function Processes() {
   const { processes } = useContext(ProcessesContext);
+  const { isManager } = useContext(UserContext);
   const [filteredProcesses, setFilteredProcesses] = useState([]);
   const [searchValue, setSearchValue] = useState("");
 
@@ -57,20 +59,14 @@ function Processes() {
           <Link
             to={`process/${process.process_id}`}
             key={process.process_id}
-            className={`text-decoration-none mx-2 w-100 bg-white my-4 rounded shadow-lg p-4 d-flex justify-content-between align-items-center`}
+            className={`bg-light text-decoration-none mx-2 w-100 bg-white my-4 rounded shadow-lg p-4 d-flex justify-content-between align-items-center`}
           >
             <div>
               <p>رقم العملية : {process.process_id}</p>
               <p>اسم العميل : {process.Client.client_name}</p>
+              {isManager && <p>اسم المندوب : {process.Sale.sales_name}</p>}
               <p>المنتج : {process.Product.product_name}</p>
               <p>التاريخ : {process.first_date}</p>
-              {/* <p>{process.process_price} جنيه</p> */}
-              {/* <p>العدد: {process.count} </p> */}
-              {/* <p>{process.Category.category_name}</p> */}
-            </div>
-            <div className="d-flex justify-content-between">
-              {/* <Editprocess processInfo={process} /> */}
-              {/* <Deleteprocess processInfo={process} /> */}
             </div>
           </Link>
         ))}

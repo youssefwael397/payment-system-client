@@ -9,7 +9,6 @@ import { UserContext } from "./../UserProvider";
 import LoadingSpinner from "./../LoadingSpinner/LoadingSpinner";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import EditManager from "./../EditManager/EditManager";
 import EditImage from "./../EditImage/EditImage";
@@ -117,6 +116,7 @@ const NationalId = ({ user_id, faceImg, backImg }) => {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 400,
+    height: 500,
     bgcolor: "background.paper",
     boxShadow: 24,
     p: 4,

@@ -49,7 +49,7 @@ function LockBranch({ id, role }) {
       <>
         <Button size="small" color="primary" onClick={handleOpen}>
           {role === "unlock" ? (
-            <i class="fa-solid fa-lock"></i>
+            <i class="fa-solid fa-lock text-danger"></i>
           ) : (
             <i class="fa-solid fa-lock-open"></i>
           )}
@@ -62,12 +62,18 @@ function LockBranch({ id, role }) {
         >
           <Box sx={style}>
             <form sx={style} onSubmit={(e) => handleUpdate(e)}>
-              <p>هل انت متأكد من غلق الفرع؟</p>
-              <span>
-                ملحوظة: غلق الفرع يؤدي إلى عدم إمكانية كلا من مدير و مناديب
-                الفرع
-              </span>
-              <SubmitButton submitLabel={role === 'lock' ? "غلق" : "فتح"} />
+              {role === "lock" ? (
+                <>
+                  <h5>هل انت متأكد من غلق الفرع؟</h5>
+                  <p>
+                    ملحوظة: غلق الفرع يؤدي إلى عدم إمكانية كلا من مدير و مناديب
+                    الفرع من الدخول
+                  </p>
+                </>
+              ) : (
+                <h5 className="my-2">هل انت متأكد من فتح الفرع؟</h5>
+              )}
+              <SubmitButton submitLabel={role === "lock" ? "غلق" : "فتح"} />
               {success && <p className="text-center text-success">{success}</p>}
               {err && <p className="text-center text-danger">{err}</p>}
               {isLoading ? <LoadingSpinner /> : null}

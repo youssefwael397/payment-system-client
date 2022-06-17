@@ -44,8 +44,8 @@ function AddSalesComponent() {
     form.append("phone", phone);
     form.append("facebook_link", facebookLink);
     form.append("sales_img", salesImg);
-    form.append("manager_face_national_id_img", salesFID);
-    form.append("manager_back_national_id_img", salesBID);
+    form.append("sales_face_national_id_img", salesFID);
+    form.append("sales_back_national_id_img", salesBID);
 
     const url = `${API_PATH}/sales/create`;
     const res = await fetch(url, {
@@ -102,7 +102,7 @@ function AddSalesComponent() {
           setFacebookLink={setFacebookLink}
         />
         <AddImage
-          inputLabel={`صورة المدير`}
+          inputLabel={`صورة المندوب`}
           image={salesImg}
           setImage={setSalesImg}
         />

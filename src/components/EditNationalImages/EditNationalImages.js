@@ -24,13 +24,9 @@ function EditNationalImages({ user_id, role }) {
   const { token } = useContext(UserContext);
   const [faceImg, setFaceImg] = useState();
   const [backImg, setBackImg] = useState();
-  const [img, setImg] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [err, setErr] = useState("");
-  const [open, setOpen] = React.useState(false);
   const [success, setSuccess] = useState();
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -41,8 +37,8 @@ function EditNationalImages({ user_id, role }) {
     const url = `${API_PATH}/${role}/update/national-images/${user_id}`;
 
     let form = new FormData();
-    form.append(`${role}_img`, faceImg);
-    form.append(`${role}_img`, backImg);
+    form.append(`${role}_face_national_img`, faceImg);
+    form.append(`${role}_back_national_img`, backImg);
 
     const res = await fetch(url, {
       method: "PUT",

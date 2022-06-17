@@ -5,6 +5,7 @@ import {
   TextField,
   Card,
   CardContent,
+  CardActions,
   CardMedia,
   Typography,
 } from "@mui/material";
@@ -84,20 +85,28 @@ export default function Branches() {
                 />
               </CardMedia>
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {branch.branch_name}
+                <Typography
+                  className="text-center"
+                  gutterBottom
+                  variant="h5"
+                  component="div"
+                >
+                  فرع {branch.branch_name}
                 </Typography>
-                <Typography color="text.secondary">
+                <p className="text-secondary">
                   <LocationOnIcon className="my-1" /> {branch.branch_address}
-                </Typography>
-                <div>
-                  <EditBranch branchInfo={branch} />
-                  <LockBranch
-                    id={branch.branch_id}
-                    role={branch.isLock ? "unlock" : "lock"}
-                  />
-                </div>
+                </p>
+                <p className="text-secondary">
+                  حالة الفرع : {branch.isLock ? "مغلق" : "مفتوح"}
+                </p>
               </CardContent>
+              <CardActions className="d-flex justify-content-between">
+                <EditBranch branchInfo={branch} />
+                <LockBranch
+                  id={branch.branch_id}
+                  role={branch.isLock ? "unlock" : "lock"}
+                />
+              </CardActions>
             </Card>
           ))}
           {filteredBranches.length < 1 && searchValue ? (
@@ -176,7 +185,7 @@ const EditBranch = ({ branchInfo }) => {
 
   return (
     <div>
-      <Button size="small" color="primary" onClick={handleOpen}>
+      <Button size="medium" color="primary" onClick={handleOpen}>
         تعديل الفرع
       </Button>
       <Modal

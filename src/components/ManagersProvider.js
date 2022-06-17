@@ -10,10 +10,10 @@ export const ManagersProvider = (props) => {
   useEffect(() => {
     getAllManagers();
     // eslint-disable-next-line
-  }, []);
+  }, [token, userInfo]);
 
   const getAllManagers = async () => {
-    if (token ) {
+    if (token && userInfo) {
       const url = `${API_PATH}/manager/`;
       const res = await fetch(url, {
         method: "GET",

@@ -22,7 +22,6 @@ function AddClientComponent() {
   const [work, setWork] = useState();
   const [workAddress, setWorkAddress] = useState();
   const [homeAddress, setHomeAddress] = useState();
-  const [facebookLink, setFacebookLink] = useState();
   const [clientFID, setClientFID] = useState();
   const [clientBID, setClientBID] = useState();
 
@@ -40,7 +39,6 @@ function AddClientComponent() {
     form.append("work", work);
     form.append("work_address", workAddress);
     form.append("home_address", homeAddress);
-    form.append("facebook_link", facebookLink);
     form.append("client_face_national_id_img", clientFID);
     form.append("client_back_national_id_img", clientBID);
 
@@ -104,10 +102,6 @@ function AddClientComponent() {
           setName={setHomeAddress}
           label="عنوان المنزل"
           placeholder="تعاونيات البحر الأحمر"
-        />
-        <FacebookLinkInput
-          facebookLink={facebookLink}
-          setFacebookLink={setFacebookLink}
         />
         <AddImage
           inputLabel={`صورة وجه البطاقة`}

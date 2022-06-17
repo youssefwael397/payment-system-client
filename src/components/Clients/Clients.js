@@ -23,6 +23,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 // import { clientssContext } from "./../ManagersProvider";
 import LoadingSpinner from "./../LoadingSpinner/LoadingSpinner";
 import { ClientsContext } from "./../ClientsProvider";
+import BlockIcon from "@mui/icons-material/Block";
 
 export default function Clients() {
   // const { user, token, isManager } = useContext(UserContext);
@@ -38,7 +39,13 @@ export default function Clients() {
             user.client_name
               .toLowerCase()
               .includes(searchValue.toLowerCase().trim()) ||
+            String(user.client_id)
+              .toLowerCase()
+              .includes(searchValue.toLowerCase().trim()) ||
             user.national_id
+              .toLowerCase()
+              .includes(searchValue.toLowerCase().trim()) ||
+            user.Sale.sales_name
               .toLowerCase()
               .includes(searchValue.toLowerCase().trim()) ||
             user.phone.includes(searchValue.trim())
@@ -58,7 +65,7 @@ export default function Clients() {
           id="outlined-basic"
           hiddenLabel
           variant="filled"
-          placeholder="ابحث بالإسم أو رقم الهاتف أو الرقم القومي"
+          placeholder="ابحث بالإسم أو رقم الهاتف أو الرقم القومي أو رقم العميل"
           type="search"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
@@ -80,12 +87,27 @@ export default function Clients() {
                 />
               </CardMedia>
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {client.client_name}
+                <Typography
+                  className="d-flex justify-content-between align-items-center"
+                  gutterBottom
+                  variant="h5"
+                  component="div"
+                >
+                  <div>{client.client_name}</div>
+                  {client.is_blocked && <BlockIcon className="text-danger" />}
                 </Typography>
                 <Typography color="text.secondary">
+                  <p className="fs-6 font-primary text-secondary">
+                    {" "}
+                    رقم العميل : {client.client_id}
+                  </p>
+                  <p className="fs-6 font-primary text-secondary">
+                    {" "}
+                    اسم المندوب : {client.Sale.sales_name}
+                  </p>
                   <PhoneIcon className="my-1" /> {client.phone}
                   <br />
+                  <i className="fa-solid fa-address-card fs-5"></i>{" "}
                   {client.national_id}
                 </Typography>
               </CardContent>
@@ -96,7 +118,6 @@ export default function Clients() {
                     to={`client/${client.client_id}`}
                   >
                     المزيد
-
                   </Link>
                 </div>
               </CardActions>

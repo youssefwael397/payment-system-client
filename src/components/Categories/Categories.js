@@ -48,7 +48,7 @@ function Categories() {
                         <p>{category.category_name}</p>
                         <div className="d-flex justify-content-between">
                             <EditCategory categoryInfo={category} />
-                            {/* <DeleteCategory categoryInfo={category} /> */}
+                            <DeleteCategory categoryInfo={category} />
                         </div>
                     </div>
                 ))}

@@ -16,12 +16,12 @@ export const ClientsProvider = (props) => {
 
   const getAllClients = async () => {
     let url;
+    // for sales home page
+    url = `${API_PATH}/client/sales/${userInfo.sales_id}`;
     // for manager home page
     if (isManager) {
       url = `${API_PATH}/client/branch/${userInfo.branch_id}`;
     }
-    // for sales home page
-    url = `${API_PATH}/client/sales/${userInfo.sales_id}`;
     // console.log(userInfo.sales_id);
 
     const res = await fetch(url, {

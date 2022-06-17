@@ -2,8 +2,13 @@ import React from "react";
 import { TextField } from "@mui/material";
 
 const NationalIdInput = ({ nationalId, setNationalId }) => {
+  let validId = true;
+  if(nationalId){
+    const pattern = /^\d{14}$/;
+    validId = pattern.test(nationalId)
+  }
   return (
-    <div className={`mb-4 col-md-6 col-xs-12 font-cairo `}>
+    <div className={`mb-4 col-md-6 col-xs-12 font-cairo ${!validId && "text-danger"}`}>
       <label htmlFor="nationalId">الرقم القومي</label>
       <TextField
         className="mx-3 w-75"
