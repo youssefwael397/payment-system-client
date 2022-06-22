@@ -10,7 +10,6 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import EditNationalImages from "./../EditNationalImages/EditNationalImages";
-import ResetPassword from "./../ResetPassword/ResetPassword";
 import WorkIcon from "@mui/icons-material/Work";
 import HomeIcon from "@mui/icons-material/Home";
 import EditClient from "./../EditClient/EditClient";
@@ -60,11 +59,11 @@ export default function Client() {
                     name={clientInfo.client_name}
                     role={clientInfo.is_blocked ? "unblock" : "block"}
                   />
-                  <DeleteUser
+                  {/* <DeleteUser
                     user_name={clientInfo.client_name}
                     user_id={clientInfo.client_id}
                     role="client"
-                  />
+                  /> */}
                 </div>
               </>
             )}

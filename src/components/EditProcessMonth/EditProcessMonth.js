@@ -61,12 +61,12 @@ function EditProcessMonth({ monthInfo }) {
       headers: { Authorization: token },
     });
 
-    const data = await res.json();
+    // const data = await res.json();
     setIsLoading(false);
     if (res.ok) {
       setSuccess(`تم تعديل السعر بنجاح`);
     } else {
-      setErr(`فشل في تعديل السعر ${monthInfo.sales_name}`);
+      setErr(`فشل في تعديل السعر`);
     }
   };
 

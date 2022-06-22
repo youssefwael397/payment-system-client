@@ -14,6 +14,10 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^4.20.7",
     "bootstrap-icons": "^1.8.3",
+    "buffer": "^6.0.3",
+    "docx": "^7.3.0",
+    "docx-templates": "^4.5.0",
+    "file-saver": "^2.0.5",
     "google-maps-react": "^2.0.6",
     "jsonwebtoken": "^8.5.1",
     "react": "^17.0.2",
@@ -22,7 +26,10 @@
     "react-lazy-load-image-component": "^1.5.4",
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
+    "react-to-print": "^2.14.7",
     "styled-components": "^5.3.3",
+    "vm": "^0.1.0",
+    "vm-browserify": "^1.1.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

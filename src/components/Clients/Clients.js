@@ -28,8 +28,18 @@ import BlockIcon from "@mui/icons-material/Block";
 export default function Clients() {
   // const { user, token, isManager } = useContext(UserContext);
   const { clients } = useContext(ClientsContext);
+  const [allClients, setAllClients] = useState([]);
+  const [blockClients, setBlockClients] = useState([]);
   const [filteredClients, setFilteredClients] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+
+  useEffect(() => {
+    setFilteredClients([...allClients]);
+  }, [allClients]);
+
+  useEffect(() => {
+    setAllClients(clients);
+  }, [clients]);
 
   useEffect(() => {
     if (searchValue !== "") {
@@ -51,10 +61,26 @@ export default function Clients() {
             user.phone.includes(searchValue.trim())
         )
       );
-    } else {
-      setFilteredClients(clients);
+    }else{
+      setFilteredClients(clients)
     }
   }, [clients, searchValue]);
+
+  const getBlockedClients = () => {
+    let block_clients = [];
+    clients.map((client) => {
+      if (client.is_blocked) {
+        block_clients = [...block_clients, client];
+      }
+    });
+    setBlockClients([...block_clients]);
+    setFilteredClients([...block_clients]);
+  };
+
+  const getAllClients = () => {
+    setBlockClients([]);
+    setFilteredClients([...allClients]);
+  };
 
   if (clients)
     return (
@@ -72,6 +98,22 @@ export default function Clients() {
           required
         />
 
+        <Button
+          size="medium"
+          variant="contained"
+          onClick={getAllClients}
+        >
+           كل العملاء
+        </Button>
+        <Button
+          className="mx-3"
+          size="medium"
+          variant="contained"
+          color="error"
+          onClick={getBlockedClients}
+        >
+          العملاء المحظورين
+        </Button>
         {/* managers Container */}
         <div className="row mt-4">
           {filteredClients.map((client) => (
@@ -96,7 +138,7 @@ export default function Clients() {
                   <div>{client.client_name}</div>
                   {client.is_blocked && <BlockIcon className="text-danger" />}
                 </Typography>
-                <Typography color="text.secondary">
+                <div className="text-secondary">
                   <p className="fs-6 font-primary text-secondary">
                     {" "}
                     رقم العميل : {client.client_id}
@@ -109,7 +151,7 @@ export default function Clients() {
                   <br />
                   <i className="fa-solid fa-address-card fs-5"></i>{" "}
                   {client.national_id}
-                </Typography>
+                </div>
               </CardContent>
               <CardActions className="d-flex justify-content-between">
                 <div>
