@@ -185,32 +185,41 @@ const DateInput = ({ date, setDate, label, placeholder }) => {
     setDate(`${month}/${year}`);
   }, [month, year]);
 
+  const MONTHS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  const YEARS = [2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030];
+
   return (
     <div className={`mb-4 col-md-6 col-xs-12 font-cairo `}>
       <div className="d-flex align-items-center">
-        <label htmlFor={"month"}>{label}</label>
-        <TextField
-          className="mx-2"
-          required
-          id={"month"}
-          placeholder={"07"}
-          variant="standard"
-          name="text"
-          type="number"
-          value={month}
-          onChange={(e) => setMonth(e.target.value)}
-        />
-        <TextField
-          className="mx-2"
-          required
-          id={"year"}
-          placeholder={"2022"}
-          variant="standard"
-          name="text"
-          type="number"
-          value={year}
-          onChange={(e) => setYear(e.target.value)}
-        />
+        <label>{label}</label>
+        <FormControl className="mx-2 w-50" variant="standard">
+          <Select
+            value={month}
+            onChange={(e) => setMonth(e.target.value)}
+            required
+          >
+            <MenuItem selected defaultValue="الشهر" disabled>الشهر</MenuItem>
+            {MONTHS.map((month) => (
+              <MenuItem key={month} value={month}>
+                {month}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl className="mx-2 w-50" variant="standard">
+          <Select
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+            required
+          >
+            <MenuItem selected defaultValue="السنه" disabled>السنه</MenuItem>
+            {YEARS.map((year) => (
+              <MenuItem key={year} value={year}>
+                {year}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </div>
     </div>
   );
