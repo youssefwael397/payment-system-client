@@ -178,30 +178,40 @@ const SelectOptions = ({ options, optionId, setOptionId, label, type }) => {
 };
 
 const DateInput = ({ date, setDate, label, placeholder }) => {
-  let validDate = true;
-  if (date) {
-    const pattern = /^\d{2}\/\d{4}$/;
-    validDate = pattern.test(date);
-  }
+  const [month, setMonth] = useState("");
+  const [year, setYear] = useState("");
+
+  useEffect(() => {
+    setDate(`${month}/${year}`);
+  }, [month, year]);
+
   return (
-    <div
-      className={`mb-4 col-md-6 col-xs-12 font-cairo ${
-        !validDate && "text-danger"
-      }`}
-    >
-      <label htmlFor={label}>{label}</label>
-      {/* <br /> */}
-      <TextField
-        className="mx-3"
-        required
-        id={label}
-        placeholder={placeholder}
-        variant="standard"
-        name="text"
-        type="text"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
-      />
+    <div className={`mb-4 col-md-6 col-xs-12 font-cairo `}>
+      <div className="d-flex align-items-center">
+        <label htmlFor={"month"}>{label}</label>
+        <TextField
+          className="mx-2"
+          required
+          id={"month"}
+          placeholder={"07"}
+          variant="standard"
+          name="text"
+          type="number"
+          value={month}
+          onChange={(e) => setMonth(e.target.value)}
+        />
+        <TextField
+          className="mx-2"
+          required
+          id={"year"}
+          placeholder={"2022"}
+          variant="standard"
+          name="text"
+          type="number"
+          value={year}
+          onChange={(e) => setYear(e.target.value)}
+        />
+      </div>
     </div>
   );
 };

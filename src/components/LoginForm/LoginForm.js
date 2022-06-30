@@ -38,13 +38,10 @@ function LoginForm() {
     });
 
     const data = await res.json();
-    console.log(res);
     if (!res.ok) {
-      console.log(data);
       setIsLoading(false);
       setError(data.error);
     } else {
-      console.log(data.token);
       window.localStorage.setItem("token", data.token);
       window.localStorage.setItem("isLogging", true);
       window.location = "/profile";

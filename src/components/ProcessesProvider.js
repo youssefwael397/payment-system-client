@@ -13,7 +13,7 @@ export const ProcessesProvider = (props) => {
   }, [token, userInfo]);
 
   const getAllProcesses = async () => {
-    if (token && (userInfo.isSales || userInfo.isManager)) {
+    if (token && (userInfo.isSales || userInfo)) {
       let url;
 
       if (isManager) {

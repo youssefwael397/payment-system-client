@@ -22,7 +22,6 @@ export default function Client() {
 
   useEffect(() => {
     getClientInfo();
-    console.log(isManager);
     // eslint-disable-next-line
   }, []);
 

@@ -13,7 +13,6 @@ function Processes() {
   const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
-    console.log(processes);
     if (searchValue !== "") {
       setFilteredProcesses(
         processes.filter(

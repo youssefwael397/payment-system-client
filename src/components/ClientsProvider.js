@@ -22,7 +22,6 @@ export const ClientsProvider = (props) => {
     if (isManager) {
       url = `${API_PATH}/client/branch/${userInfo.branch_id}`;
     }
-    // console.log(userInfo.sales_id);
 
     const res = await fetch(url, {
       method: "GET",

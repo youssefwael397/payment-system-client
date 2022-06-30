@@ -13,7 +13,7 @@ export const ManagersProvider = (props) => {
   }, [token, userInfo]);
 
   const getAllManagers = async () => {
-    if (token && userInfo.isBoss) {
+    if (token && userInfo) {
       const url = `${API_PATH}/manager/`;
       const res = await fetch(url, {
         method: "GET",

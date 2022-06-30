@@ -35,7 +35,7 @@ function PrintInsurance() {
 
     let monthList = [];
 
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 20; i++) {
       if (i > 0) {
         month = +month + 1;
       }
@@ -48,7 +48,6 @@ function PrintInsurance() {
       let new_month = `${month}/${year}`;
       monthList = [...monthList, new_month];
     }
-    console.log(monthList);
     return monthList;
   };
 
@@ -79,7 +78,6 @@ function PrintInsurance() {
     } else {
       alert("Failed");
     }
-    console.log(processes);
   };
 
   return (
@@ -223,10 +221,10 @@ const ContentToPrint = ({ index, processes }) => {
           {/* <span>(بنظام القسط )</span> */}
         </div>
         <div>
-          <table class="table table-bordered border-dark border-2 mx-2">
+          <table class="table table-bordered border-dark border-2 ">
             <tbody>
               <tr className="p-2">
-                <td>&ensp;</td>
+                <td>&ensp; &ensp; &ensp;    </td>
               </tr>
               <tr>
                 <td className="text-center">{process.month_count}</td>
@@ -281,10 +279,10 @@ const ContentToPrint = ({ index, processes }) => {
           <div className="d-flex align-items-center justify-content-between">
 
             <div >
-              <p> الإجمالــــــى  : <span className="rounded-3 border border-dark border-3 p-1">&emsp;  &emsp; &emsp; &emsp; &emsp; &emsp;</span></p>
+              <p> الإجمالــــــى  : <span className="rounded-3 border border-dark border-3 p-1">&emsp; {`${process.total}`}  &emsp;</span></p>
             </div>
             <div >
-              <p> نظام القسط  : <span className="rounded-3 border border-dark border-3 p-1">&emsp;  &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;</span></p>
+              <p> نظام القسط  : <span className="rounded-3 border border-dark border-3 p-1">&emsp; {`${process.price} * ${process.month_count}`}  &emsp;</span></p>
             </div>
           </div>
 

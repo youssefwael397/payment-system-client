@@ -63,11 +63,11 @@ export default function Manager() {
                 <div className="d-flex justify-content-between">
                   <ResetPassword id={id} role="manager" />
                   <EditManager userInfo={managerInfo} />
-                  <DeleteUser
+                  {/* <DeleteUser
                     user_name={managerInfo.manager_name}
                     user_id={managerInfo.manager_id}
                     role="manager"
-                  />
+                  /> */}
                 </div>
               </div>
               <hr className="w-25 rounded line" />

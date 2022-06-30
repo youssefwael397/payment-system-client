@@ -33,7 +33,7 @@ function DeleteProcess({ id }) {
   useEffect(() => {
     if (success) {
       setTimeout(() => {
-        window.location.reload()
+        window.location.reload();
       }, 1000);
     }
   }, [success]);
@@ -55,6 +55,8 @@ function DeleteProcess({ id }) {
     setIsLoading(false);
     if (res.ok) {
       setSuccess(data);
+      alert("تم حذف العملية بنجاح.");
+      window.location.reload();
     } else {
       setErr(data.error);
     }

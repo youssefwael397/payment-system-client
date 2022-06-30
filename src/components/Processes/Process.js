@@ -147,7 +147,9 @@ function Process() {
                         <p>تم الدفع : {month.is_cashed ? "نعم" : "لا"}</p>
                       </div>
                       <div className="p-2 d-flex justify-content-between align-items-center">
-                        <EditProcessMonth monthInfo={month} />
+                        {
+                          isManager && <EditProcessMonth monthInfo={month} />
+                        }
                         <ConfirmMonthCashing
                           id={month.process_month_id}
                           role={month.is_cashed ? "uncash" : "cash"}
@@ -167,8 +169,6 @@ function Process() {
 const PrintButton = ({ body, dataRef, setIsPrinting, isPrinting }) => {
   const printInsurance = () => {
     setIsPrinting(true);
-    console.log(body.innerHTML);
-    console.log(dataRef.current.innerHTML);
     const bodyTemp = body.innerHTML;
     body.innerHTML = dataRef.current.innerHTML;
     window.print();
