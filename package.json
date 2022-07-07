@@ -1,5 +1,6 @@
 {
   "name": "payment-system",
+  "homepage": "https://www.al-moustafa.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -60,6 +61,11 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^3.2.3"
+    "@babel/core": "^7.18.6",
+    "babel-loader": "^8.2.5",
+    "gh-pages": "^3.2.3",
+    "html-webpack-plugin": "^5.5.0",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0"
   }
 }

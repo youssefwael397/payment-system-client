@@ -13,8 +13,8 @@ import { ProcessesProvider } from "./components/ProcessesProvider";
 
 function App() {
   return (
-    <UserProvider>
-      <Router>
+    <Router>
+      <UserProvider>
         <NavBar />
         <div className={`App container-xl  page-vh`}>
           <BranchesProvider>
@@ -23,11 +23,11 @@ function App() {
                 <SalesProvider>
                   <ClientsProvider>
                     <ProductsProvider>
-                    <ProcessesProvider>
-                      <div className="h-100">
-                        <AppRoutes />
-                      </div>
-                    </ProcessesProvider>
+                      <ProcessesProvider>
+                        <div className="h-100">
+                          <AppRoutes />
+                        </div>
+                      </ProcessesProvider>
                     </ProductsProvider>
                   </ClientsProvider>
                 </SalesProvider>
@@ -35,8 +35,8 @@ function App() {
             </ManagersProvider>
           </BranchesProvider>
         </div>
-      </Router>
-    </UserProvider>
+      </UserProvider>
+    </Router>
   );
 }
 
